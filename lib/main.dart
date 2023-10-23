@@ -33,6 +33,8 @@ class InsomniaRecordHomePage extends StatefulWidget {
 }
 
 class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
+  String timeForBed = '00:00';
+
   Store? store;
   Box<SleepRecord>? sleepRecordBox;
   List<SleepRecord> sleepRecords = [];
@@ -57,17 +59,18 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: ListView.builder(
-        itemCount: sleepRecords.length,
-        itemBuilder: (context, index) {
-          final sleepRecord = sleepRecords[index];
-          return Text(sleepRecord.timeForBed);
-        },
+      body: Column(
+        children: [
+          const Text('布団に入った時間'),
+          TextFormField(
+            initialValue: timeForBed,
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // TODO: データ登録
-
+            
           // TODO: ページ遷移
           Navigator.of(context).push(
             MaterialPageRoute(
