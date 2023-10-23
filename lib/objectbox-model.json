@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:7154496104564186480",
-      "lastPropertyId": "2:7668392535524400172",
+      "lastPropertyId": "3:6056668378679045481",
       "name": "SleepRecord",
       "properties": [
         {
@@ -17,6 +17,11 @@
         {
           "id": "2:7668392535524400172",
           "name": "timeForBed",
+          "type": 9
+        },
+        {
+          "id": "3:6056668378679045481",
+          "name": "wakeUpTime",
           "type": 9
         }
       ],

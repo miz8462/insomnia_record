@@ -36,6 +36,9 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
   String timeForBed = '00:00';
   String wakeUpTime = '07:00';
 
+  final _timeForBedController = TextEditingController();
+  final _wakeUpTimeController = TextEditingController();
+
   Store? store;
   Box<SleepRecord>? sleepRecordBox;
   List<SleepRecord> sleepRecords = [];
@@ -64,6 +67,7 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
         children: [
           const Text('布団に入った時間'),
           TextField(
+            controller: _timeForBedController,
             onChanged: (text) {
               timeForBed = text;
             },
@@ -73,6 +77,7 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
           ),
           const Text('布団から出た時間'),
           TextField(
+            controller: _wakeUpTimeController,
             onChanged: (text) {
               wakeUpTime = text;
             },
@@ -80,7 +85,17 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
               hintText: wakeUpTime,
             ),
           ),
-          ElevatedButton(child: Text("登録"), onPressed: () {}),
+          ElevatedButton(
+            child: Text("登録"),
+            onPressed: () {
+              final timeForBedText = _timeForBedController.text;
+              final wakeUpTimeText = _wakeUpTimeController.text;
+              sleepRecordBox?.put(
+                SleepRecord(
+                    timeForBed: timeForBedText, wakeUpTime: wakeUpTimeText),
+              );
+            },
+          ),
         ],
       ),
       floatingActionButton: FloatingActionButton(

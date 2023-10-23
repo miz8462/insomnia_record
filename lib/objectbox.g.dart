@@ -22,7 +22,7 @@ final _entities = <ModelEntity>[
   ModelEntity(
       id: const IdUid(1, 7154496104564186480),
       name: 'SleepRecord',
-      lastPropertyId: const IdUid(2, 7668392535524400172),
+      lastPropertyId: const IdUid(3, 6056668378679045481),
       flags: 0,
       properties: <ModelProperty>[
         ModelProperty(
@@ -33,6 +33,11 @@ final _entities = <ModelEntity>[
         ModelProperty(
             id: const IdUid(2, 7668392535524400172),
             name: 'timeForBed',
+            type: 9,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(3, 6056668378679045481),
+            name: 'wakeUpTime',
             type: 9,
             flags: 0)
       ],
@@ -90,9 +95,11 @@ ModelDefinition getObjectBoxModel() {
         },
         objectToFB: (SleepRecord object, fb.Builder fbb) {
           final timeForBedOffset = fbb.writeString(object.timeForBed);
-          fbb.startTable(3);
+          final wakeUpTimeOffset = fbb.writeString(object.wakeUpTime);
+          fbb.startTable(4);
           fbb.addInt64(0, object.id);
           fbb.addOffset(1, timeForBedOffset);
+          fbb.addOffset(2, wakeUpTimeOffset);
           fbb.finish(fbb.endTable());
           return object.id;
         },
@@ -101,7 +108,10 @@ ModelDefinition getObjectBoxModel() {
           final rootOffset = buffer.derefObject(0);
           final timeForBedParam = const fb.StringReader(asciiOptimization: true)
               .vTableGet(buffer, rootOffset, 6, '');
-          final object = SleepRecord(timeForBed: timeForBedParam)
+          final wakeUpTimeParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGet(buffer, rootOffset, 8, '');
+          final object = SleepRecord(
+              timeForBed: timeForBedParam, wakeUpTime: wakeUpTimeParam)
             ..id = const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
 
           return object;
@@ -120,4 +130,8 @@ class SleepRecord_ {
   /// see [SleepRecord.timeForBed]
   static final timeForBed =
       QueryStringProperty<SleepRecord>(_entities[0].properties[1]);
+
+  /// see [SleepRecord.wakeUpTime]
+  static final wakeUpTime =
+      QueryStringProperty<SleepRecord>(_entities[0].properties[2]);
 }
