@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:insomnia_record/objectbox.g.dart';
+import 'package:insomnia_record/record_table_page.dart';
 import 'package:insomnia_record/sleep_record.dart';
 
 void main() {
@@ -56,22 +57,26 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              'madoka',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
+      body: ListView.builder(
+        itemCount: sleepRecords.length,
+        itemBuilder: (context, index) {
+          final sleepRecord = sleepRecords[index];
+          return Text(sleepRecord.timeForBed);
+        },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          // TODO: データ登録
+
+          // TODO: ページ遷移
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) {
+                return const RecordTablePage();
+              },
+            ),
+          );
+        },
         tooltip: 'add new record',
         child: const Icon(Icons.add),
       ),
