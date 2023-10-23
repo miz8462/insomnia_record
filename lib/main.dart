@@ -86,13 +86,20 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
             ),
           ),
           ElevatedButton(
-            child: Text("登録"),
+            child: const Text("登録"),
             onPressed: () {
               final timeForBedText = _timeForBedController.text;
               final wakeUpTimeText = _wakeUpTimeController.text;
               sleepRecordBox?.put(
                 SleepRecord(
                     timeForBed: timeForBedText, wakeUpTime: wakeUpTimeText),
+              );
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) {
+                    return const RecordTablePage(sleepRecords);
+                  },
+                ),
               );
             },
           ),
