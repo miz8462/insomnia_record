@@ -88,38 +88,26 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
           ElevatedButton(
             child: const Text("登録"),
             onPressed: () {
+              // データを登録
               final timeForBedText = _timeForBedController.text;
               final wakeUpTimeText = _wakeUpTimeController.text;
               sleepRecordBox?.put(
                 SleepRecord(
                     timeForBed: timeForBedText, wakeUpTime: wakeUpTimeText),
               );
+              sleepRecords = sleepRecordBox?.getAll() ?? [];
+              setState(() {});
+              // 画面遷移
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) {
-                    return const RecordTablePage(sleepRecords);
+                    return RecordTablePage(sleepRecords: sleepRecords);
                   },
                 ),
               );
             },
           ),
         ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // TODO: データ登録
-
-          // TODO: ページ遷移
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) {
-                return const RecordTablePage();
-              },
-            ),
-          );
-        },
-        tooltip: 'add new record',
-        child: const Icon(Icons.add),
       ),
     );
   }
