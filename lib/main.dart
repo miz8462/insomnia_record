@@ -42,14 +42,6 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
   int morningFeeling = 1;
   int qualityOfSleep = 1;
 
-  final _timeForBedController = TextEditingController();
-  final _wakeUpTimeController = TextEditingController();
-  final _sleepTimeController = TextEditingController();
-  final _numberOfAwakingController = TextEditingController();
-  final _timeOfAwakingController = TextEditingController();
-  final _morningFeelingController = TextEditingController();
-  final _qualityOfSleepController = TextEditingController();
-
   Store? store;
   Box<SleepRecord>? sleepRecordBox;
   List<SleepRecord> sleepRecords = [];
@@ -80,7 +72,6 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
             children: [
               const Text('布団に入った時間'),
               TextField(
-                controller: _timeForBedController,
                 onChanged: (text) {
                   timeForBed = text;
                 },
@@ -94,7 +85,6 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
             children: [
               const Text('布団から出た時間'),
               TextField(
-                controller: _wakeUpTimeController,
                 onChanged: (text) {
                   wakeUpTime = text;
                 },
@@ -110,7 +100,6 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
               TextField(
                 keyboardType: TextInputType.number,
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                controller: _sleepTimeController,
                 onChanged: (text) {
                   sleepTime = int.parse(text);
                 },
@@ -126,7 +115,6 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
               TextField(
                 keyboardType: TextInputType.number,
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                controller: _wakeUpTimeController,
                 onChanged: (text) {
                   numberOfAwaking = int.parse(text);
                 },
@@ -142,7 +130,6 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
               TextField(
                 keyboardType: TextInputType.number,
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                controller: _wakeUpTimeController,
                 onChanged: (text) {
                   timeOfAwaking = int.parse(text);
                 },
@@ -158,7 +145,6 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
               TextField(
                 keyboardType: TextInputType.number,
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                controller: _wakeUpTimeController,
                 onChanged: (text) {
                   morningFeeling = int.parse(text);
                 },
@@ -174,7 +160,6 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
               TextField(
                 keyboardType: TextInputType.number,
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                controller: _wakeUpTimeController,
                 onChanged: (text) {
                   qualityOfSleep = int.parse(text);
                 },
@@ -188,23 +173,16 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
             child: const Text("登録"),
             onPressed: () {
               // データを登録
-              final timeForBedText = _timeForBedController.text;
-              final wakeUpTimeText = _wakeUpTimeController.text;
-              final sleepTimeText = _sleepTimeController.text;
-              final numberOfAwakingText = _numberOfAwakingController.text;
-              final timeOfAwakingText = _timeOfAwakingController.text;
-              final morningFeelingText = _morningFeelingController.text;
-              final qualityOfSleepText = _qualityOfSleepController.text;
 
               sleepRecordBox?.put(
                 SleepRecord(
-                  timeForBed: timeForBedText,
-                  wakeUpTime: wakeUpTimeText,
-                  sleepTime: int.parse(sleepTimeText),
-                  numberOfAwaking: int.parse(numberOfAwakingText),
-                  timeOfAwaking: int.parse(timeOfAwakingText),
-                  morningFeeling: int.parse(morningFeelingText),
-                  qualityOfSleep: int.parse(qualityOfSleepText),
+                  timeForBed: timeForBed,
+                  wakeUpTime: wakeUpTime,
+                  sleepTime: sleepTime,
+                  numberOfAwaking: numberOfAwaking,
+                  timeOfAwaking: timeOfAwaking,
+                  morningFeeling: morningFeeling,
+                  qualityOfSleep: qualityOfSleep,
                 ),
               );
               sleepRecords = sleepRecordBox?.getAll() ?? [];
