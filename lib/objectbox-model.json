@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:7154496104564186480",
-      "lastPropertyId": "3:6056668378679045481",
+      "lastPropertyId": "8:2266601415029794558",
       "name": "SleepRecord",
       "properties": [
         {
@@ -23,6 +23,31 @@
           "id": "3:6056668378679045481",
           "name": "wakeUpTime",
           "type": 9
+        },
+        {
+          "id": "4:2298693736245816715",
+          "name": "sleepTime",
+          "type": 6
+        },
+        {
+          "id": "5:2864271183918240577",
+          "name": "numberOfAwaking",
+          "type": 6
+        },
+        {
+          "id": "6:7623539963839053198",
+          "name": "timeOfAwaking",
+          "type": 6
+        },
+        {
+          "id": "7:6730085741061181353",
+          "name": "morningFeeling",
+          "type": 6
+        },
+        {
+          "id": "8:2266601415029794558",
+          "name": "qualityOfSleep",
+          "type": 6
         }
       ],
       "relations": []

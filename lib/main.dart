@@ -35,6 +35,11 @@ class InsomniaRecordHomePage extends StatefulWidget {
 class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
   String timeForBed = '00:00';
   String wakeUpTime = '07:00';
+  int sleepTime = 0;
+  int numberOfAwaking = 0;
+  int timeOfAwaking = 0;
+  int morningFeeling = 1;
+  int qualityOfSleep = 1;
 
   final _timeForBedController = TextEditingController();
   final _wakeUpTimeController = TextEditingController();
@@ -93,7 +98,14 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
               final wakeUpTimeText = _wakeUpTimeController.text;
               sleepRecordBox?.put(
                 SleepRecord(
-                    timeForBed: timeForBedText, wakeUpTime: wakeUpTimeText),
+                  timeForBed: timeForBedText,
+                  wakeUpTime: wakeUpTimeText,
+                  sleepTime: sleepTime,
+                  numberOfAwaking: numberOfAwaking,
+                  timeOfAwaking: timeOfAwaking,
+                  morningFeeling: morningFeeling,
+                  qualityOfSleep: qualityOfSleep,
+                ),
               );
               sleepRecords = sleepRecordBox?.getAll() ?? [];
               setState(() {});

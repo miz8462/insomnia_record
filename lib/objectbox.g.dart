@@ -22,7 +22,7 @@ final _entities = <ModelEntity>[
   ModelEntity(
       id: const IdUid(1, 7154496104564186480),
       name: 'SleepRecord',
-      lastPropertyId: const IdUid(3, 6056668378679045481),
+      lastPropertyId: const IdUid(8, 2266601415029794558),
       flags: 0,
       properties: <ModelProperty>[
         ModelProperty(
@@ -39,6 +39,31 @@ final _entities = <ModelEntity>[
             id: const IdUid(3, 6056668378679045481),
             name: 'wakeUpTime',
             type: 9,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(4, 2298693736245816715),
+            name: 'sleepTime',
+            type: 6,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(5, 2864271183918240577),
+            name: 'numberOfAwaking',
+            type: 6,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(6, 7623539963839053198),
+            name: 'timeOfAwaking',
+            type: 6,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(7, 6730085741061181353),
+            name: 'morningFeeling',
+            type: 6,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(8, 2266601415029794558),
+            name: 'qualityOfSleep',
+            type: 6,
             flags: 0)
       ],
       relations: <ModelRelation>[],
@@ -96,10 +121,15 @@ ModelDefinition getObjectBoxModel() {
         objectToFB: (SleepRecord object, fb.Builder fbb) {
           final timeForBedOffset = fbb.writeString(object.timeForBed);
           final wakeUpTimeOffset = fbb.writeString(object.wakeUpTime);
-          fbb.startTable(4);
+          fbb.startTable(9);
           fbb.addInt64(0, object.id);
           fbb.addOffset(1, timeForBedOffset);
           fbb.addOffset(2, wakeUpTimeOffset);
+          fbb.addInt64(3, object.sleepTime);
+          fbb.addInt64(4, object.numberOfAwaking);
+          fbb.addInt64(5, object.timeOfAwaking);
+          fbb.addInt64(6, object.morningFeeling);
+          fbb.addInt64(7, object.qualityOfSleep);
           fbb.finish(fbb.endTable());
           return object.id;
         },
@@ -110,8 +140,24 @@ ModelDefinition getObjectBoxModel() {
               .vTableGet(buffer, rootOffset, 6, '');
           final wakeUpTimeParam = const fb.StringReader(asciiOptimization: true)
               .vTableGet(buffer, rootOffset, 8, '');
+          final sleepTimeParam =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 10, 0);
+          final numberOfAwakingParam =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 12, 0);
+          final timeOfAwakingParam =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 14, 0);
+          final morningFeelingParam =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 16, 0);
+          final qualityOfSleepParam =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 18, 0);
           final object = SleepRecord(
-              timeForBed: timeForBedParam, wakeUpTime: wakeUpTimeParam)
+              timeForBed: timeForBedParam,
+              wakeUpTime: wakeUpTimeParam,
+              sleepTime: sleepTimeParam,
+              numberOfAwaking: numberOfAwakingParam,
+              timeOfAwaking: timeOfAwakingParam,
+              morningFeeling: morningFeelingParam,
+              qualityOfSleep: qualityOfSleepParam)
             ..id = const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
 
           return object;
@@ -134,4 +180,24 @@ class SleepRecord_ {
   /// see [SleepRecord.wakeUpTime]
   static final wakeUpTime =
       QueryStringProperty<SleepRecord>(_entities[0].properties[2]);
+
+  /// see [SleepRecord.sleepTime]
+  static final sleepTime =
+      QueryIntegerProperty<SleepRecord>(_entities[0].properties[3]);
+
+  /// see [SleepRecord.numberOfAwaking]
+  static final numberOfAwaking =
+      QueryIntegerProperty<SleepRecord>(_entities[0].properties[4]);
+
+  /// see [SleepRecord.timeOfAwaking]
+  static final timeOfAwaking =
+      QueryIntegerProperty<SleepRecord>(_entities[0].properties[5]);
+
+  /// see [SleepRecord.morningFeeling]
+  static final morningFeeling =
+      QueryIntegerProperty<SleepRecord>(_entities[0].properties[6]);
+
+  /// see [SleepRecord.qualityOfSleep]
+  static final qualityOfSleep =
+      QueryIntegerProperty<SleepRecord>(_entities[0].properties[7]);
 }
