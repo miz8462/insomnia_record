@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Insomnia Record',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue.shade200),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange),
         useMaterial3: true,
       ),
       home: const InsomniaRecordHomePage(title: 'Insomnia Record'),
@@ -170,7 +170,6 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
             ],
           ),
           ElevatedButton(
-            child: const Text("登録"),
             onPressed: () {
               // データを登録
 
@@ -196,6 +195,11 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
                 ),
               );
             },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.orange.shade200,
+              foregroundColor: Colors.brown.shade800,
+            ),
+            child: const Text("登録"),
           ),
         ],
       ),
