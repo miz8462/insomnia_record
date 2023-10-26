@@ -174,7 +174,6 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
             ElevatedButton(
               onPressed: () {
                 // データを登録
-
                 sleepRecordBox?.put(
                   SleepRecord(
                     createdAt: createdAt,
