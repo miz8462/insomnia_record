@@ -63,20 +63,42 @@ class _RecordTablePageState extends State<RecordTablePage> {
                 ),
               ),
             ],
-            rows: const <DataRow>[
-              DataRow(
+            rows: List<DataRow>.generate(
+              7,
+              (index) => DataRow(
                 cells: <DataCell>[
-                  DataCell(Text('01/17')),
-                  DataCell(Text('02:00')),
-                  DataCell(Text('10:00')),
-                  DataCell(Text('30')),
-                  DataCell(Text('2')),
-                  DataCell(Text('20')),
-                  DataCell(Text('4')),
-                  DataCell(Text('5')),
+                  DataCell(
+                      Text(widget.sleepRecords[index].createdAt.toString())),
+                  DataCell(Text(widget.sleepRecords[index].timeForBed)),
+                  DataCell(Text(widget.sleepRecords[index].wakeUpTime)),
+                  DataCell(
+                      Text((widget.sleepRecords[index].sleepTime.toString()))),
+                  DataCell(Text(
+                      widget.sleepRecords[index].numberOfAwaking.toString())),
+                  DataCell(Text(
+                      widget.sleepRecords[index].timeOfAwaking.toString())),
+                  DataCell(Text(
+                      widget.sleepRecords[index].morningFeeling.toString())),
+                  DataCell(Text(
+                      widget.sleepRecords[index].qualityOfSleep.toString())),
                 ],
               ),
-            ],
+            ),
+
+            // const <DataRow>[
+            //   DataRow(
+            //     cells: <DataCell>[
+            //       DataCell(Text('01/17')),
+            //       DataCell(Text('02:00')),
+            //       DataCell(Text('10:00')),
+            //       DataCell(Text('30')),
+            //       DataCell(Text('2')),
+            //       DataCell(Text('20')),
+            //       DataCell(Text('4')),
+            //       DataCell(Text('5')),
+            //     ],
+            //   ),
+            // ],
           ),
         ),
       ),
