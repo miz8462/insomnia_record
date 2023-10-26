@@ -25,6 +25,7 @@ class _RecordTablePageState extends State<RecordTablePage> {
           return SingleChildScrollView(
             child: Column(
               children: [
+                Text('日付: ${sleepRecord.createdAt}'),
                 Text('布団に入った時間: ${sleepRecord.timeForBed}'),
                 Text('布団から出た時間: ${sleepRecord.wakeUpTime}'),
                 Text('眠りにつくまでの時間: ${sleepRecord.sleepTime.toString()}'),

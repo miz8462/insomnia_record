@@ -34,6 +34,7 @@ class InsomniaRecordHomePage extends StatefulWidget {
 }
 
 class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
+  DateTime createdAt = DateTime.now();
   String timeForBed = '00:00';
   String wakeUpTime = '07:00';
   int sleepTime = 0;
@@ -176,6 +177,7 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
 
                 sleepRecordBox?.put(
                   SleepRecord(
+                    createdAt: createdAt,
                     timeForBed: timeForBed,
                     wakeUpTime: wakeUpTime,
                     sleepTime: sleepTime,

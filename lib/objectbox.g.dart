@@ -22,7 +22,7 @@ final _entities = <ModelEntity>[
   ModelEntity(
       id: const IdUid(1, 7154496104564186480),
       name: 'SleepRecord',
-      lastPropertyId: const IdUid(8, 2266601415029794558),
+      lastPropertyId: const IdUid(9, 4848555731396531671),
       flags: 0,
       properties: <ModelProperty>[
         ModelProperty(
@@ -64,6 +64,11 @@ final _entities = <ModelEntity>[
             id: const IdUid(8, 2266601415029794558),
             name: 'qualityOfSleep',
             type: 6,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(9, 4848555731396531671),
+            name: 'createdAt',
+            type: 10,
             flags: 0)
       ],
       relations: <ModelRelation>[],
@@ -121,7 +126,7 @@ ModelDefinition getObjectBoxModel() {
         objectToFB: (SleepRecord object, fb.Builder fbb) {
           final timeForBedOffset = fbb.writeString(object.timeForBed);
           final wakeUpTimeOffset = fbb.writeString(object.wakeUpTime);
-          fbb.startTable(9);
+          fbb.startTable(10);
           fbb.addInt64(0, object.id);
           fbb.addOffset(1, timeForBedOffset);
           fbb.addOffset(2, wakeUpTimeOffset);
@@ -130,12 +135,15 @@ ModelDefinition getObjectBoxModel() {
           fbb.addInt64(5, object.timeOfAwaking);
           fbb.addInt64(6, object.morningFeeling);
           fbb.addInt64(7, object.qualityOfSleep);
+          fbb.addInt64(8, object.createdAt.millisecondsSinceEpoch);
           fbb.finish(fbb.endTable());
           return object.id;
         },
         objectFromFB: (Store store, ByteData fbData) {
           final buffer = fb.BufferContext(fbData);
           final rootOffset = buffer.derefObject(0);
+          final createdAtParam = DateTime.fromMillisecondsSinceEpoch(
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 20, 0));
           final timeForBedParam = const fb.StringReader(asciiOptimization: true)
               .vTableGet(buffer, rootOffset, 6, '');
           final wakeUpTimeParam = const fb.StringReader(asciiOptimization: true)
@@ -151,6 +159,7 @@ ModelDefinition getObjectBoxModel() {
           final qualityOfSleepParam =
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 18, 0);
           final object = SleepRecord(
+              createdAt: createdAtParam,
               timeForBed: timeForBedParam,
               wakeUpTime: wakeUpTimeParam,
               sleepTime: sleepTimeParam,
@@ -200,4 +209,8 @@ class SleepRecord_ {
   /// see [SleepRecord.qualityOfSleep]
   static final qualityOfSleep =
       QueryIntegerProperty<SleepRecord>(_entities[0].properties[7]);
+
+  /// see [SleepRecord.createdAt]
+  static final createdAt =
+      QueryIntegerProperty<SleepRecord>(_entities[0].properties[8]);
 }

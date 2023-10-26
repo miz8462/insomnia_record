@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:7154496104564186480",
-      "lastPropertyId": "8:2266601415029794558",
+      "lastPropertyId": "9:4848555731396531671",
       "name": "SleepRecord",
       "properties": [
         {
@@ -48,6 +48,11 @@
           "id": "8:2266601415029794558",
           "name": "qualityOfSleep",
           "type": 6
+        },
+        {
+          "id": "9:4848555731396531671",
+          "name": "createdAt",
+          "type": 10
         }
       ],
       "relations": []
