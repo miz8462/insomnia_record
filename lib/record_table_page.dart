@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:insomnia_record/calc_sleep_data.dart';
 import 'package:insomnia_record/sleep_record.dart';
 import 'package:intl/intl.dart';
 
@@ -11,31 +12,7 @@ class RecordTablePage extends StatefulWidget {
 }
 
 class _RecordTablePageState extends State<RecordTablePage> {
-  int calcTotalTimeInBed(
-      {required String timeForBed, required String wakeUpTime}) {
-    // Stringの時間データをintする
-    final int hourTimeForBed = int.parse(timeForBed.substring(0, 2));
-    final int minuteTimeForBed = int.parse(timeForBed.substring(3, 5));
-    int hourWakeUpTime = int.parse(wakeUpTime.substring(0, 2));
-    final int minuteWakeUpTime = int.parse(wakeUpTime.substring(3, 5));
-    int totalHour;
-    int totalMinute;
-    int totalTime;
-
-    // 起床時間から睡眠時間を引く
-    if ((totalMinute = minuteWakeUpTime - minuteTimeForBed) < 0) {
-      totalMinute += 60;
-      hourWakeUpTime -= 1;
-      if ((totalHour = hourWakeUpTime - hourTimeForBed) < 0) {
-        totalHour += 24;
-      }
-    }
-    if ((totalHour = hourWakeUpTime - hourTimeForBed) < 0) {
-      totalHour += 24;
-    }
-    totalTime = totalHour * 60 + totalMinute;
-    return totalTime;
-  }
+  CalcSleepData calc = CalcSleepData();
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +83,7 @@ class _RecordTablePageState extends State<RecordTablePage> {
               // ),
             ],
             rows: List<DataRow>.generate(
-              1,
+              7,
               (index) => DataRow(
                 cells: <DataCell>[
                   DataCell(Text(DateFormat('MM/dd')
@@ -125,7 +102,7 @@ class _RecordTablePageState extends State<RecordTablePage> {
                       widget.sleepRecords[index].morningFeeling.toString())),
                   DataCell(Text(
                       widget.sleepRecords[index].qualityOfSleep.toString())),
-                  DataCell(Text(calcTotalTimeInBed(
+                  DataCell(Text(calc.calcTotalTimeInBed(
                           timeForBed: widget.sleepRecords[index].timeForBed,
                           wakeUpTime: widget.sleepRecords[index].wakeUpTime)
                       .toString())),

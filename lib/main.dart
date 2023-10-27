@@ -52,6 +52,7 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
     store = await openStore();
     sleepRecordBox = store?.box<SleepRecord>();
     sleepRecords = sleepRecordBox?.getAll() ?? [];
+    // sleepRecordBox?.removeAll();
     setState(() {});
   }
 
