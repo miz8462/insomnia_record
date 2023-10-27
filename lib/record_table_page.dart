@@ -11,6 +11,32 @@ class RecordTablePage extends StatefulWidget {
 }
 
 class _RecordTablePageState extends State<RecordTablePage> {
+  int calcTotalTimeInBed(
+      {required String timeForBed, required String wakeUpTime}) {
+    // Stringの時間データをintする
+    final int hourTimeForBed = int.parse(timeForBed.substring(0, 2));
+    final int minuteTimeForBed = int.parse(timeForBed.substring(3, 5));
+    int hourWakeUpTime = int.parse(wakeUpTime.substring(0, 2));
+    final int minuteWakeUpTime = int.parse(wakeUpTime.substring(3, 5));
+    int totalHour;
+    int totalMinute;
+    int totalTime;
+
+    // 起床時間から睡眠時間を引く
+    if ((totalMinute = minuteWakeUpTime - minuteTimeForBed) < 0) {
+      totalMinute += 60;
+      hourWakeUpTime -= 1;
+      if ((totalHour = hourWakeUpTime - hourTimeForBed) < 0) {
+        totalHour += 24;
+      }
+    }
+    if ((totalHour = hourWakeUpTime - hourTimeForBed) < 0) {
+      totalHour += 24;
+    }
+    totalTime = totalHour * 60 + totalMinute;
+    return totalTime;
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -63,9 +89,24 @@ class _RecordTablePageState extends State<RecordTablePage> {
                   child: Text('睡眠の質(5段階)'),
                 ),
               ),
+              DataColumn(
+                label: Expanded(
+                  child: Text('総臥床時間'),
+                ),
+              ),
+              // DataColumn(
+              //   label: Expanded(
+              //     child: Text('総睡眠時間'),
+              //   ),
+              // ),
+              // DataColumn(
+              //   label: Expanded(
+              //     child: Text('睡眠効率'),
+              //   ),
+              // ),
             ],
             rows: List<DataRow>.generate(
-              7,
+              1,
               (index) => DataRow(
                 cells: <DataCell>[
                   DataCell(Text(DateFormat('MM/dd')
@@ -84,6 +125,10 @@ class _RecordTablePageState extends State<RecordTablePage> {
                       widget.sleepRecords[index].morningFeeling.toString())),
                   DataCell(Text(
                       widget.sleepRecords[index].qualityOfSleep.toString())),
+                  DataCell(Text(calcTotalTimeInBed(
+                          timeForBed: widget.sleepRecords[index].timeForBed,
+                          wakeUpTime: widget.sleepRecords[index].wakeUpTime)
+                      .toString())),
                 ],
               ),
             ),
