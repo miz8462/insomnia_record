@@ -8,7 +8,6 @@ class CalcSleepData {
     final int minuteWakeUpTime = int.parse(wakeUpTime.substring(3, 5));
     int totalHour;
     int totalMinute;
-    int totalTime;
 
     // 起床時間から睡眠時間を引く
     if ((totalMinute = minuteWakeUpTime - minuteTimeForBed) < 0) {
@@ -21,7 +20,21 @@ class CalcSleepData {
     if ((totalHour = hourWakeUpTime - hourTimeForBed) < 0) {
       totalHour += 24;
     }
-    totalTime = totalHour * 60 + totalMinute;
-    return totalTime;
+    return totalHour * 60 + totalMinute;
+  }
+
+  int calcTotalSleepTime(
+      {required String totalTimeInBed,
+      required int sleepTime,
+      required int timeOfAwaking}) {
+    final intTotalTime = int.parse(totalTimeInBed);
+    return (intTotalTime - (sleepTime + timeOfAwaking));
+  }
+
+  double calcSleepEfficiency(
+      {required String totalSleepTime, required String totalTimeInBed}) {
+    final intTotalSleepTime = int.parse(totalSleepTime);
+    final intTotalTimeInBed = int.parse(totalTimeInBed);
+    return (((intTotalSleepTime / intTotalTimeInBed) * 100) * 10).round() / 10;
   }
 }

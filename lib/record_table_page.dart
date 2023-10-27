@@ -13,6 +13,8 @@ class RecordTablePage extends StatefulWidget {
 
 class _RecordTablePageState extends State<RecordTablePage> {
   CalcSleepData calc = CalcSleepData();
+  String totalTimeInBed = "0";
+  String totalSleepTime = "0";
 
   @override
   Widget build(BuildContext context) {
@@ -71,16 +73,16 @@ class _RecordTablePageState extends State<RecordTablePage> {
                   child: Text('総臥床時間'),
                 ),
               ),
-              // DataColumn(
-              //   label: Expanded(
-              //     child: Text('総睡眠時間'),
-              //   ),
-              // ),
-              // DataColumn(
-              //   label: Expanded(
-              //     child: Text('睡眠効率'),
-              //   ),
-              // ),
+              DataColumn(
+                label: Expanded(
+                  child: Text('総睡眠時間'),
+                ),
+              ),
+              DataColumn(
+                label: Expanded(
+                  child: Text('睡眠効率'),
+                ),
+              ),
             ],
             rows: List<DataRow>.generate(
               7,
@@ -102,9 +104,22 @@ class _RecordTablePageState extends State<RecordTablePage> {
                       widget.sleepRecords[index].morningFeeling.toString())),
                   DataCell(Text(
                       widget.sleepRecords[index].qualityOfSleep.toString())),
-                  DataCell(Text(calc.calcTotalTimeInBed(
+                  DataCell(Text(totalTimeInBed = calc
+                      .calcTotalTimeInBed(
                           timeForBed: widget.sleepRecords[index].timeForBed,
                           wakeUpTime: widget.sleepRecords[index].wakeUpTime)
+                      .toString())),
+                  DataCell(Text(totalSleepTime = calc
+                      .calcTotalSleepTime(
+                        totalTimeInBed: totalTimeInBed,
+                        sleepTime: widget.sleepRecords[index].sleepTime,
+                        timeOfAwaking: widget.sleepRecords[index].timeOfAwaking,
+                      )
+                      .toString())),
+                  DataCell(Text(calc
+                      .calcSleepEfficiency(
+                          totalSleepTime: totalSleepTime,
+                          totalTimeInBed: totalTimeInBed)
                       .toString())),
                 ],
               ),
