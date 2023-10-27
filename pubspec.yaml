@@ -37,6 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   objectbox: ^2.3.1
   objectbox_flutter_libs: ^2.3.1
+  intl: ^0.18.1
 
 dev_dependencies:
   flutter_test:

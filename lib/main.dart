@@ -3,10 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:insomnia_record/objectbox.g.dart';
 import 'package:insomnia_record/record_table_page.dart';
 import 'package:insomnia_record/sleep_record.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+void main() =>
+    initializeDateFormatting("ja-JP", null).then((_) => runApp(const MyApp()));
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -34,7 +34,8 @@ class InsomniaRecordHomePage extends StatefulWidget {
 }
 
 class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
-  DateTime createdAt = DateTime.now();
+  final DateTime createdAt = DateTime.now();
+
   String timeForBed = '00:00';
   String wakeUpTime = '07:00';
   int sleepTime = 0;

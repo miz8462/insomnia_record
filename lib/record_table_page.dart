@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:insomnia_record/sleep_record.dart';
+import 'package:intl/intl.dart';
 
 class RecordTablePage extends StatefulWidget {
   const RecordTablePage({super.key, required this.sleepRecords});
@@ -67,8 +68,10 @@ class _RecordTablePageState extends State<RecordTablePage> {
               7,
               (index) => DataRow(
                 cells: <DataCell>[
-                  DataCell(
-                      Text(widget.sleepRecords[index].createdAt.toString())),
+                  DataCell(Text(DateFormat('MM/dd')
+                          .format(widget.sleepRecords[index].createdAt)
+                      // '${widget.sleepRecords[index].createdAt.month}/${widget.sleepRecords[index].createdAt.day}'
+                      )),
                   DataCell(Text(widget.sleepRecords[index].timeForBed)),
                   DataCell(Text(widget.sleepRecords[index].wakeUpTime)),
                   DataCell(
@@ -84,21 +87,6 @@ class _RecordTablePageState extends State<RecordTablePage> {
                 ],
               ),
             ),
-
-            // const <DataRow>[
-            //   DataRow(
-            //     cells: <DataCell>[
-            //       DataCell(Text('01/17')),
-            //       DataCell(Text('02:00')),
-            //       DataCell(Text('10:00')),
-            //       DataCell(Text('30')),
-            //       DataCell(Text('2')),
-            //       DataCell(Text('20')),
-            //       DataCell(Text('4')),
-            //       DataCell(Text('5')),
-            //     ],
-            //   ),
-            // ],
           ),
         ),
       ),
