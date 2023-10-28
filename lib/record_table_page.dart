@@ -29,6 +29,66 @@ class _RecordTablePageState extends State<RecordTablePage> {
   final double averageTotalTimeInBed = 0.0;
   final double averageTotalSleepTime = 0.0;
 
+  List<DataColumn> createColumns() {
+    return const <DataColumn>[
+      DataColumn(
+        label: Expanded(
+          child: Text('日付'),
+        ),
+      ),
+      DataColumn(
+        label: Expanded(
+          child: Text('布団に入った時間'),
+        ),
+      ),
+      DataColumn(
+        label: Expanded(
+          child: Text('布団から出た時間'),
+        ),
+      ),
+      DataColumn(
+        label: Expanded(
+          child: Text('眠りにつくまでの時間'),
+        ),
+      ),
+      DataColumn(
+        label: Expanded(
+          child: Text('夜中に目覚めた回数'),
+        ),
+      ),
+      DataColumn(
+        label: Expanded(
+          child: Text('夜中に目覚めてた時間'),
+        ),
+      ),
+      DataColumn(
+        label: Expanded(
+          child: Text('朝の体調(5段階)'),
+        ),
+      ),
+      DataColumn(
+        label: Expanded(
+          child: Text('睡眠の質(5段階)'),
+        ),
+      ),
+      DataColumn(
+        label: Expanded(
+          child: Text('総臥床時間'),
+        ),
+      ),
+      DataColumn(
+        label: Expanded(
+          child: Text('総睡眠時間'),
+        ),
+      ),
+      DataColumn(
+        label: Expanded(
+          child: Text('睡眠効率'),
+        ),
+      ),
+    ];
+  }
+
   List<DataRow> createDataCells({required List<SleepRecord> sleepRecords}) {
     return List<DataRow>.generate(
       // TODO: データ数がnumItems(7)より小さいときも表が表示されるようにする
@@ -78,65 +138,14 @@ class _RecordTablePageState extends State<RecordTablePage> {
         ),
         body: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
-          child: DataTable(
-            columns: const <DataColumn>[
-              DataColumn(
-                label: Expanded(
-                  child: Text('日付'),
-                ),
+          child: Column(
+            children: [
+              DataTable(
+                columns: createColumns(),
+                rows: createDataCells(sleepRecords: widget.sleepRecords),
               ),
-              DataColumn(
-                label: Expanded(
-                  child: Text('布団に入った時間'),
-                ),
-              ),
-              DataColumn(
-                label: Expanded(
-                  child: Text('布団から出た時間'),
-                ),
-              ),
-              DataColumn(
-                label: Expanded(
-                  child: Text('眠りにつくまでの時間'),
-                ),
-              ),
-              DataColumn(
-                label: Expanded(
-                  child: Text('夜中に目覚めた回数'),
-                ),
-              ),
-              DataColumn(
-                label: Expanded(
-                  child: Text('夜中に目覚めてた時間'),
-                ),
-              ),
-              DataColumn(
-                label: Expanded(
-                  child: Text('朝の体調(5段階)'),
-                ),
-              ),
-              DataColumn(
-                label: Expanded(
-                  child: Text('睡眠の質(5段階)'),
-                ),
-              ),
-              DataColumn(
-                label: Expanded(
-                  child: Text('総臥床時間'),
-                ),
-              ),
-              DataColumn(
-                label: Expanded(
-                  child: Text('総睡眠時間'),
-                ),
-              ),
-              DataColumn(
-                label: Expanded(
-                  child: Text('睡眠効率'),
-                ),
-              ),
+              // DataTable(columns: columns, rows: rows)
             ],
-            rows: createDataCells(sleepRecords: widget.sleepRecords),
           ),
         ),
       ),
