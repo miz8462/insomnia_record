@@ -72,6 +72,7 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            // TODO: widgetを作成
             Column(
               children: [
                 const Text('布団に入った時間'),
@@ -205,6 +206,7 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
               ),
               child: const Text("登録"),
             ),
+            // TODO: テーブルページに遷移するだけのボタン
           ],
         ),
       ),

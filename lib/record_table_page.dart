@@ -33,6 +33,7 @@ class _RecordTablePageState extends State<RecordTablePage> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        // TODO: 戻るボタン
         appBar: AppBar(
           title: const Text('Insomnia Record'),
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -98,9 +99,11 @@ class _RecordTablePageState extends State<RecordTablePage> {
               ),
             ],
             rows: List<DataRow>.generate(
+              // TODO: データ数がnumItems(7)より小さいときも表が表示されるようにする
               numItems,
               (index) => DataRow(
                 cells: <DataCell>[
+                  // TODO: 修正、削除のモーダル
                   DataCell(Text(DateFormat('MM/dd')
                       .format(widget.sleepRecords[index].createdAt))),
                   DataCell(Text(widget.sleepRecords[index].timeForBed)),
