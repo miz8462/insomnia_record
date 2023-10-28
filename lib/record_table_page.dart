@@ -29,6 +29,44 @@ class _RecordTablePageState extends State<RecordTablePage> {
   final double averageTotalTimeInBed = 0.0;
   final double averageTotalSleepTime = 0.0;
 
+  List<DataRow> createDataCells({required List<SleepRecord> sleepRecords}) {
+    return List<DataRow>.generate(
+      // TODO: データ数がnumItems(7)より小さいときも表が表示されるようにする
+      numItems,
+      (index) => DataRow(
+        cells: <DataCell>[
+          // TODO: 修正、削除のモーダル
+          DataCell(
+              Text(DateFormat('MM/dd').format(sleepRecords[index].createdAt))),
+          DataCell(Text(sleepRecords[index].timeForBed)),
+          DataCell(Text(sleepRecords[index].wakeUpTime)),
+          DataCell(Text((sleepRecords[index].sleepTime.toString()))),
+          DataCell(Text(sleepRecords[index].numberOfAwaking.toString())),
+          DataCell(Text(sleepRecords[index].timeOfAwaking.toString())),
+          DataCell(Text(sleepRecords[index].morningFeeling.toString())),
+          DataCell(Text(sleepRecords[index].qualityOfSleep.toString())),
+          DataCell(Text(totalTimeInBed = calc
+              .calcTotalTimeInBed(
+                  timeForBed: sleepRecords[index].timeForBed,
+                  wakeUpTime: sleepRecords[index].wakeUpTime)
+              .toString())),
+          DataCell(Text(totalSleepTime = calc
+              .calcTotalSleepTime(
+                totalTimeInBed: totalTimeInBed,
+                sleepTime: widget.sleepRecords[index].sleepTime,
+                timeOfAwaking: widget.sleepRecords[index].timeOfAwaking,
+              )
+              .toString())),
+          DataCell(Text(calc
+              .calcSleepEfficiency(
+                  totalSleepTime: totalSleepTime,
+                  totalTimeInBed: totalTimeInBed)
+              .toString())),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -98,46 +136,7 @@ class _RecordTablePageState extends State<RecordTablePage> {
                 ),
               ),
             ],
-            rows: List<DataRow>.generate(
-              // TODO: データ数がnumItems(7)より小さいときも表が表示されるようにする
-              numItems,
-              (index) => DataRow(
-                cells: <DataCell>[
-                  // TODO: 修正、削除のモーダル
-                  DataCell(Text(DateFormat('MM/dd')
-                      .format(widget.sleepRecords[index].createdAt))),
-                  DataCell(Text(widget.sleepRecords[index].timeForBed)),
-                  DataCell(Text(widget.sleepRecords[index].wakeUpTime)),
-                  DataCell(
-                      Text((widget.sleepRecords[index].sleepTime.toString()))),
-                  DataCell(Text(
-                      widget.sleepRecords[index].numberOfAwaking.toString())),
-                  DataCell(Text(
-                      widget.sleepRecords[index].timeOfAwaking.toString())),
-                  DataCell(Text(
-                      widget.sleepRecords[index].morningFeeling.toString())),
-                  DataCell(Text(
-                      widget.sleepRecords[index].qualityOfSleep.toString())),
-                  DataCell(Text(totalTimeInBed = calc
-                      .calcTotalTimeInBed(
-                          timeForBed: widget.sleepRecords[index].timeForBed,
-                          wakeUpTime: widget.sleepRecords[index].wakeUpTime)
-                      .toString())),
-                  DataCell(Text(totalSleepTime = calc
-                      .calcTotalSleepTime(
-                        totalTimeInBed: totalTimeInBed,
-                        sleepTime: widget.sleepRecords[index].sleepTime,
-                        timeOfAwaking: widget.sleepRecords[index].timeOfAwaking,
-                      )
-                      .toString())),
-                  DataCell(Text(calc
-                      .calcSleepEfficiency(
-                          totalSleepTime: totalSleepTime,
-                          totalTimeInBed: totalTimeInBed)
-                      .toString())),
-                ],
-              ),
-            ),
+            rows: createDataCells(sleepRecords: widget.sleepRecords),
           ),
         ),
       ),
