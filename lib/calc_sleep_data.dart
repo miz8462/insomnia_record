@@ -47,4 +47,11 @@ class CalcSleepData {
   double calcSevenDaysAverageInt({required List<SleepRecord> sleepRecords}) {
     return 0;
   }
+
+  double calcAverageSleepEfficiency(
+      {required double averageTotalTimeInBed,
+      required double averageTotalSleepTime}) {
+    return ((averageTotalSleepTime / averageTotalTimeInBed * 1000).round() /
+        10);
+  }
 }

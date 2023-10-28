@@ -28,7 +28,6 @@ class _RecordTablePageState extends State<RecordTablePage> {
   final double averageQualityOfSleep = 0.0;
   final double averageTotalTimeInBed = 0.0;
   final double averageTotalSleepTime = 0.0;
-  final double averageSleepEfficiency = 0.0;
 
   @override
   Widget build(BuildContext context) {
