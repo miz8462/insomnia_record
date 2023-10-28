@@ -15,6 +15,20 @@ class _RecordTablePageState extends State<RecordTablePage> {
   CalcSleepData calc = CalcSleepData();
   String totalTimeInBed = "0";
   String totalSleepTime = "0";
+  static const int numItems = 7;
+
+  // 7日間平均
+  // TODO: average関数で初期化する
+  final double averageTimeForBed = 0.0;
+  final double averageWakeUpTime = 0.0;
+  final double averageSleepTime = 0.0;
+  final double averageNumberOfAwaking = 0.0;
+  final double averageTimeOfAwaking = 0.0;
+  final double averageMorningFeeling = 0.0;
+  final double averageQualityOfSleep = 0.0;
+  final double averageTotalTimeInBed = 0.0;
+  final double averageTotalSleepTime = 0.0;
+  final double averageSleepEfficiency = 0.0;
 
   @override
   Widget build(BuildContext context) {
@@ -85,13 +99,11 @@ class _RecordTablePageState extends State<RecordTablePage> {
               ),
             ],
             rows: List<DataRow>.generate(
-              7,
+              numItems,
               (index) => DataRow(
                 cells: <DataCell>[
                   DataCell(Text(DateFormat('MM/dd')
-                          .format(widget.sleepRecords[index].createdAt)
-                      // '${widget.sleepRecords[index].createdAt.month}/${widget.sleepRecords[index].createdAt.day}'
-                      )),
+                      .format(widget.sleepRecords[index].createdAt))),
                   DataCell(Text(widget.sleepRecords[index].timeForBed)),
                   DataCell(Text(widget.sleepRecords[index].wakeUpTime)),
                   DataCell(

@@ -1,3 +1,5 @@
+import 'package:insomnia_record/sleep_record.dart';
+
 class CalcSleepData {
   int calcTotalTimeInBed(
       {required String timeForBed, required String wakeUpTime}) {
@@ -35,6 +37,14 @@ class CalcSleepData {
       {required String totalSleepTime, required String totalTimeInBed}) {
     final intTotalSleepTime = int.parse(totalSleepTime);
     final intTotalTimeInBed = int.parse(totalTimeInBed);
-    return (((intTotalSleepTime / intTotalTimeInBed) * 100) * 10).round() / 10;
+    return ((intTotalSleepTime / intTotalTimeInBed) * 1000).round() / 10;
+  }
+
+  double calcSevenDaysAverageTime({required List<SleepRecord> sleepRecords}) {
+    return 0;
+  }
+
+  double calcSevenDaysAverageInt({required List<SleepRecord> sleepRecords}) {
+    return 0;
   }
 }
