@@ -140,24 +140,22 @@ class _RecordTablePageState extends State<RecordTablePage> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        // TODO: 戻るボタン
-        appBar: AppBar(
-          title: const Text('Insomnia Record'),
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        ),
-        body: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Column(
-            children: [
-              DataTable(
-                columns: createColumns(),
-                rows: createDataCells(sleepRecords: widget.sleepRecords),
-              ),
-              // DataTable(columns: columns, rows: rows)
-            ],
-          ),
+    return Scaffold(
+      // TODO: 戻るボタン
+      appBar: AppBar(
+        title: const Text('Insomnia Record'),
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+      ),
+      body: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Column(
+          children: [
+            DataTable(
+              columns: createColumns(),
+              rows: createDataCells(sleepRecords: widget.sleepRecords),
+            ),
+            // DataTable(columns: columns, rows: rows)
+          ],
         ),
       ),
     );
