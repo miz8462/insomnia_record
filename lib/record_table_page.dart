@@ -30,60 +30,71 @@ class _RecordTablePageState extends State<RecordTablePage> {
   final double averageTotalSleepTime = 0.0;
 
   List<DataColumn> createColumns() {
+    const String createdAt = "日付";
+    const String timeForBed = "布団に入った時間";
+    const String wakeUpTime = "布団から出た時間";
+    const String sleepTime = "眠りにつくまでの時間";
+    const String numberOfAwaking = "夜中に目覚めた回数";
+    const String timeOfAwaking = "夜中に目覚めてた時間";
+    const String morningFeeling = "朝の体調(5段階)";
+    const String qualityOfSleep = "睡眠の質(5段階)";
+    const String totalTimeInBed = "総臥床時間";
+    const String totalSleepTime = "総睡眠時間";
+    const String sleepEfficiency = "睡眠効率";
     return const <DataColumn>[
       DataColumn(
         label: Expanded(
-          child: Text('日付'),
+          child: Text(createdAt),
         ),
       ),
       DataColumn(
         label: Expanded(
-          child: Text('布団に入った時間'),
+          child: Text(timeForBed),
         ),
       ),
       DataColumn(
         label: Expanded(
-          child: Text('布団から出た時間'),
+          child: Text(wakeUpTime),
         ),
       ),
       DataColumn(
         label: Expanded(
-          child: Text('眠りにつくまでの時間'),
+          child: Text(sleepTime),
         ),
       ),
       DataColumn(
         label: Expanded(
-          child: Text('夜中に目覚めた回数'),
+          child: Text(numberOfAwaking),
         ),
       ),
       DataColumn(
         label: Expanded(
-          child: Text('夜中に目覚めてた時間'),
+          child: Text(timeOfAwaking),
         ),
       ),
       DataColumn(
         label: Expanded(
-          child: Text('朝の体調(5段階)'),
+          child: Text(morningFeeling),
         ),
       ),
       DataColumn(
         label: Expanded(
-          child: Text('睡眠の質(5段階)'),
+          child: Text(qualityOfSleep),
         ),
       ),
       DataColumn(
         label: Expanded(
-          child: Text('総臥床時間'),
+          child: Text(totalTimeInBed),
         ),
       ),
       DataColumn(
         label: Expanded(
-          child: Text('総睡眠時間'),
+          child: Text(totalSleepTime),
         ),
       ),
       DataColumn(
         label: Expanded(
-          child: Text('睡眠効率'),
+          child: Text(sleepEfficiency),
         ),
       ),
     ];
