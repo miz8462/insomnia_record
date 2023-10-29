@@ -174,6 +174,7 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
                 ),
               ],
             ),
+            // フォームを登録しページ遷移するボタン
             ElevatedButton(
               onPressed: () {
                 // データを登録
@@ -206,7 +207,24 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
               ),
               child: const Text("登録"),
             ),
-            // TODO: テーブルページに遷移するだけのボタン
+            // テーブルページに遷移するだけのボタン
+            ElevatedButton(
+              onPressed: () {
+                // 画面遷移
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return RecordTablePage(sleepRecords: sleepRecords);
+                    },
+                  ),
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.orange.shade200,
+                foregroundColor: Colors.brown.shade800,
+              ),
+              child: const Text("週間データを表示"),
+            ),
           ],
         ),
       ),
