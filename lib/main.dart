@@ -51,7 +51,16 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
   Future<void> initialize() async {
     store = await openStore();
     sleepRecordBox = store?.box<SleepRecord>();
+    getNewSevenRecords();
+  }
+
+  void getNewSevenRecords() {
     sleepRecords = sleepRecordBox?.getAll() ?? [];
+    final query = sleepRecordBox
+        ?.query(SleepRecord_.id.greaterThan(sleepRecords.length - 7))
+        .build();
+    sleepRecords = query!.find();
+    query.close;
     // sleepRecordBox?.removeAll();
     setState(() {});
   }
@@ -190,8 +199,7 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
                     qualityOfSleep: qualityOfSleep,
                   ),
                 );
-                sleepRecords = sleepRecordBox?.getAll() ?? [];
-                setState(() {});
+                getNewSevenRecords();
                 // 画面遷移
                 Navigator.of(context).push(
                   MaterialPageRoute(
