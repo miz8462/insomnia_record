@@ -12,23 +12,23 @@ class RecordTablePage extends StatefulWidget {
 }
 
 class _RecordTablePageState extends State<RecordTablePage> {
+  static const int numItems = 7;
+
   CalcSleepData calc = CalcSleepData();
   String totalTimeInBed = "0";
   String totalSleepTime = "0";
-  static const int numItems = 7;
-
   // 7日間平均
   // TODO: average関数で初期化する
-  final double averageTimeForBed = 0.0;
-  final double averageWakeUpTime = 0.0;
+  final String averageTimeForBed = '00:00';
+  final String averageWakeUpTime = '00:00';
   final double averageSleepTime = 0.0;
   final double averageNumberOfAwaking = 0.0;
   final double averageTimeOfAwaking = 0.0;
   final double averageMorningFeeling = 0.0;
   final double averageQualityOfSleep = 0.0;
-  final double averageTotalTimeInBed = 0.0;
-  final double averageTotalSleepTime = 0.0;
-
+  final double averageTotalTimeInBed = 420.0;
+  final double averageTotalSleepTime = 380.0;
+  // カラム名
   List<DataColumn> createColumns() {
     const String createdAt = "日付";
     const String timeForBed = "布団に入った時間";
@@ -102,8 +102,8 @@ class _RecordTablePageState extends State<RecordTablePage> {
 
   List<DataRow> createDataCells({required List<SleepRecord> sleepRecords}) {
     return List<DataRow>.generate(
-      // TODO: データ数がnumItems(7)より小さいときも表が表示されるようにする
-      numItems,
+      // データ数がnumItems(7)より小さいときも表が表示されるようにする
+      (sleepRecords.length < numItems) ? sleepRecords.length : numItems,
       (index) => DataRow(
         cells: <DataCell>[
           // TODO: 修正、削除のモーダル
@@ -141,22 +141,52 @@ class _RecordTablePageState extends State<RecordTablePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // TODO: 戻るボタン
       appBar: AppBar(
         title: const Text('Insomnia Record'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
-      body: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Column(
-          children: [
-            DataTable(
-              columns: createColumns(),
-              rows: createDataCells(sleepRecords: widget.sleepRecords),
+      body: Column(
+        children: [
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Column(
+              children: [
+                DataTable(
+                  columns: createColumns(),
+                  rows: createDataCells(sleepRecords: widget.sleepRecords),
+                ),
+                DataTable(
+                  headingRowHeight: 0,
+                  columns: createColumns(),
+                  rows: <DataRow>[
+                    DataRow(
+                      cells: <DataCell>[
+                        const DataCell(Text('平均')),
+                        DataCell(Text(averageTimeForBed)),
+                        DataCell(Text(averageWakeUpTime)),
+                        DataCell(Text(averageSleepTime.toString())),
+                        DataCell(Text(averageNumberOfAwaking.toString())),
+                        DataCell(Text(averageTimeOfAwaking.toString())),
+                        DataCell(Text(averageMorningFeeling.toString())),
+                        DataCell(Text(averageQualityOfSleep.toString())),
+                        DataCell(Text(averageTotalTimeInBed.toString())),
+                        DataCell(Text(averageTotalSleepTime.toString())),
+                        DataCell(
+                          Text((((averageTotalSleepTime /
+                                              averageTotalTimeInBed) *
+                                          1000)
+                                      .round() /
+                                  10)
+                              .toString()),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
             ),
-            // DataTable(columns: columns, rows: rows)
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
