@@ -124,8 +124,8 @@ class _RecordTablePageState extends State<RecordTablePage> {
           DataCell(Text(totalSleepTime = calc
               .calcTotalSleepTime(
                 totalTimeInBed: totalTimeInBed,
-                sleepTime: widget.sleepRecords[index].sleepTime,
-                timeOfAwaking: widget.sleepRecords[index].timeOfAwaking,
+                sleepTime: sleepRecords[index].sleepTime,
+                timeOfAwaking: sleepRecords[index].timeOfAwaking,
               )
               .toString())),
           DataCell(Text(calc
