@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:insomnia_record/calc_sleep_data.dart';
+import 'package:insomnia_record/objectbox.g.dart';
 import 'package:insomnia_record/sleep_record.dart';
 import 'package:intl/intl.dart';
 
 class RecordTablePage extends StatefulWidget {
-  const RecordTablePage({super.key, required this.sleepRecords});
+  const RecordTablePage(
+      {super.key, required this.sleepRecords, required this.box});
   final List<SleepRecord> sleepRecords;
+  final Box<SleepRecord>? box;
 
   @override
   State<RecordTablePage> createState() => _RecordTablePageState();
@@ -100,7 +103,31 @@ class _RecordTablePageState extends State<RecordTablePage> {
     ];
   }
 
-  List<DataRow> createDataCells({required List<SleepRecord> sleepRecords}) {
+  Future<void> deleteDialog(int id, Box<SleepRecord>? box) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: const Text('削除しますか？'),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => {
+              // idに基づいて削除
+              Navigator.pop(context, 'OK')
+            },
+            child: const Text('はい'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context, 'cancel'),
+            child: const Text('いいえ'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  List<DataRow> createDataCells(
+      {required List<SleepRecord> sleepRecords,
+      required Box<SleepRecord>? box}) {
     return List<DataRow>.generate(
       // データ数がnumItems(7)より小さいときも表が表示されるようにする
       (sleepRecords.length < numItems) ? sleepRecords.length : numItems,
@@ -108,7 +135,13 @@ class _RecordTablePageState extends State<RecordTablePage> {
         cells: <DataCell>[
           // TODO: 修正、削除のモーダル
           DataCell(
-              Text(DateFormat('MM/dd').format(sleepRecords[index].createdAt))),
+            Text(DateFormat('MM/dd').format(sleepRecords[index].createdAt)),
+            onTap: () {
+              // モーダル表示
+              deleteDialog(sleepRecords[index].id, box); // Idが必要
+              // 削除
+            },
+          ),
           DataCell(Text(sleepRecords[index].timeForBed)),
           DataCell(Text(sleepRecords[index].wakeUpTime)),
           DataCell(Text((sleepRecords[index].sleepTime.toString()))),
@@ -153,7 +186,8 @@ class _RecordTablePageState extends State<RecordTablePage> {
               children: [
                 DataTable(
                   columns: createColumns(),
-                  rows: createDataCells(sleepRecords: widget.sleepRecords),
+                  rows: createDataCells(
+                      sleepRecords: widget.sleepRecords, box: widget.box),
                 ),
                 DataTable(
                   headingRowHeight: 0,

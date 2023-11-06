@@ -45,18 +45,18 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
   int qualityOfSleep = 1;
 
   Store? store;
-  Box<SleepRecord>? sleepRecordBox;
+  Box<SleepRecord>? box;
   List<SleepRecord> sleepRecords = [];
 
   Future<void> initialize() async {
     store = await openStore();
-    sleepRecordBox = store?.box<SleepRecord>();
+    box = store?.box<SleepRecord>();
     getNewSevenRecords();
   }
 
   void getNewSevenRecords() {
-    sleepRecords = sleepRecordBox?.getAll() ?? [];
-    final query = sleepRecordBox
+    sleepRecords = box?.getAll() ?? [];
+    final query = box
         ?.query(SleepRecord_.id.greaterThan(sleepRecords.length - 7))
         .build();
     sleepRecords = query!.find();
@@ -187,7 +187,7 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
             ElevatedButton(
               onPressed: () {
                 // データを登録
-                sleepRecordBox?.put(
+                box?.put(
                   SleepRecord(
                     createdAt: createdAt,
                     timeForBed: timeForBed,
@@ -204,7 +204,8 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) {
-                      return RecordTablePage(sleepRecords: sleepRecords);
+                      return RecordTablePage(
+                          sleepRecords: sleepRecords, box: box);
                     },
                   ),
                 );
@@ -218,11 +219,13 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
             // テーブルページに遷移するだけのボタン
             ElevatedButton(
               onPressed: () {
+                getNewSevenRecords();
                 // 画面遷移
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) {
-                      return RecordTablePage(sleepRecords: sleepRecords);
+                      return RecordTablePage(
+                          sleepRecords: sleepRecords, box: box);
                     },
                   ),
                 );
