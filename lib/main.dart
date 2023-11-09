@@ -219,6 +219,7 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
             // テーブルページに遷移するだけのボタン
             ElevatedButton(
               onPressed: () {
+                getNewSevenRecords();
                 // 画面遷移
                 Navigator.of(context).push(
                   MaterialPageRoute(
