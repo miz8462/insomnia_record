@@ -111,8 +111,9 @@ class _RecordTablePageState extends State<RecordTablePage> {
         actions: <Widget>[
           TextButton(
             onPressed: () => {
-              // idに基づいて削除
-              Navigator.pop(context, 'OK')
+              // データを削除しトップに戻る
+              box?.remove(id),
+              Navigator.popUntil(context, (route) => route.isFirst)
             },
             child: const Text('はい'),
           ),
@@ -133,13 +134,11 @@ class _RecordTablePageState extends State<RecordTablePage> {
       (sleepRecords.length < numItems) ? sleepRecords.length : numItems,
       (index) => DataRow(
         cells: <DataCell>[
-          // TODO: 修正、削除のモーダル
           DataCell(
             Text(DateFormat('MM/dd').format(sleepRecords[index].createdAt)),
             onTap: () {
-              // モーダル表示
-              deleteDialog(sleepRecords[index].id, box); // Idが必要
-              // 削除
+              // 削除モーダル表示
+              deleteDialog(sleepRecords[index].id, box);
             },
           ),
           DataCell(Text(sleepRecords[index].timeForBed)),
@@ -169,6 +168,18 @@ class _RecordTablePageState extends State<RecordTablePage> {
         ],
       ),
     );
+  }
+
+  void getNewSevenRecords() {
+    var sleepRecords = widget.box?.getAll() ?? [];
+    final query = widget.box
+        ?.query(SleepRecord_.id.greaterThan(sleepRecords.length - 7))
+        .build();
+    if (query != null) {
+      sleepRecords = query.find();
+      query.close;
+    }
+    setState(() {});
   }
 
   @override

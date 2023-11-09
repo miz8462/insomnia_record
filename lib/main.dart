@@ -61,7 +61,7 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
         .build();
     sleepRecords = query!.find();
     query.close;
-    // sleepRecordBox?.removeAll();
+    // box?.removeAll();
     setState(() {});
   }
 
@@ -219,7 +219,6 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
             // テーブルページに遷移するだけのボタン
             ElevatedButton(
               onPressed: () {
-                getNewSevenRecords();
                 // 画面遷移
                 Navigator.of(context).push(
                   MaterialPageRoute(
