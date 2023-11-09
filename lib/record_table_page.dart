@@ -207,7 +207,7 @@ class _RecordTablePageState extends State<RecordTablePage> {
                     DataRow(
                       cells: <DataCell>[
                         const DataCell(Text('平均')),
-                        DataCell(Text(averageTimeForBed)),
+                        DataCell(Text(calc.calcSevenDaysAverageTimeForBed(sleepRecords: widget.sleepRecords))),
                         DataCell(Text(averageWakeUpTime)),
                         DataCell(Text(averageSleepTime.toString())),
                         DataCell(Text(averageNumberOfAwaking.toString())),

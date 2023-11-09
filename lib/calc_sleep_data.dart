@@ -40,8 +40,31 @@ class CalcSleepData {
     return ((intTotalSleepTime / intTotalTimeInBed) * 1000).round() / 10;
   }
 
-  double calcSevenDaysAverageTime({required List<SleepRecord> sleepRecords}) {
-    return 0;
+  static const int oneHour = 60;
+  static const int numItems = 7;
+
+  String calcSevenDaysAverageTimeForBed(
+      {required List<SleepRecord> sleepRecords}) {
+    String result = "00:00";
+    int totalMin = 0;
+    int averageMin = 0;
+    int averageHour = 0;
+    // 時間を分になおす
+    for (int i = 0; i < sleepRecords.length; i++) {
+      final int hour = int.parse(sleepRecords[i].timeForBed.substring(0, 2));
+      final int min = int.parse(sleepRecords[i].timeForBed.substring(3, 5));
+      totalMin += hour * oneHour;
+      totalMin += min;
+    }
+    if (sleepRecords.length < numItems) {
+      averageMin = (totalMin / sleepRecords.length).round();
+    } else {
+      averageMin = (totalMin / numItems).round();
+    }
+    averageHour = averageMin ~/ oneHour;
+    averageMin = averageMin % oneHour;
+    result = '$averageHour:$averageMin';
+    return result;
   }
 
   double calcSevenDaysAverageInt({required List<SleepRecord> sleepRecords}) {
