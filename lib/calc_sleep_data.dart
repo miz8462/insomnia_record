@@ -70,6 +70,7 @@ class CalcSleepData {
     }
     averageHour = averageMin ~/ oneHour;
     averageMin = averageMin % oneHour;
+    // 分や時間が一桁の場合、十の位に0を付ける
     if (averageHour < 10) {
       strAverageHour = '0$averageHour';
     } else {
@@ -112,6 +113,7 @@ class CalcSleepData {
     }
     averageHour = averageMin ~/ oneHour;
     averageMin = averageMin % oneHour;
+    // 分や時間が一桁の場合、十の位に0を付ける
     if (averageHour < 10) {
       strAverageHour = '0$averageHour';
     } else {
@@ -126,8 +128,114 @@ class CalcSleepData {
     return result;
   }
 
-  double calcSevenDaysAverageInt({required List<SleepRecord> sleepRecords}) {
-    return 0;
+  double calcSevenDaysAverageSleepTime({required List<SleepRecord> sleepRecords}) {
+    double total = 0;
+    double average = 0;
+
+    // レコードがない場合
+    if (sleepRecords.isEmpty) {
+      return average;
+    }
+    // 合計を求める
+    for (int i = 0; i < sleepRecords.length; i++) {
+      total += sleepRecords[i].sleepTime;
+    }
+    // 平均を求める
+    if (sleepRecords.length < numItems) {
+      average = (((total / sleepRecords.length) * 10).round() / 10).toDouble();
+    } else {
+      average = (((total / numItems) * 10).round() / 10).toDouble();
+    }
+
+    return average;
+  }
+
+  double calcSevenDaysAverageNumberOfAwaking({required List<SleepRecord> sleepRecords}) {
+    double total = 0;
+    double average = 0;
+
+    // レコードがない場合
+    if (sleepRecords.isEmpty) {
+      return average;
+    }
+    // 合計を求める
+    for (int i = 0; i < sleepRecords.length; i++) {
+      total += sleepRecords[i].numberOfAwaking;
+    }
+    // 平均を求める
+    if (sleepRecords.length < numItems) {
+      average = (((total / sleepRecords.length) * 10).round() / 10).toDouble();
+    } else {
+      average = (((total / numItems) * 10).round() / 10).toDouble();
+    }
+
+    return average;
+  }
+
+  double calcSevenDaysAverageTimeOfAwaking({required List<SleepRecord> sleepRecords}) {
+    double total = 0;
+    double average = 0;
+
+    // レコードがない場合
+    if (sleepRecords.isEmpty) {
+      return average;
+    }
+    // 合計を求める
+    for (int i = 0; i < sleepRecords.length; i++) {
+      total += sleepRecords[i].timeOfAwaking;
+    }
+    // 平均を求める
+    if (sleepRecords.length < numItems) {
+      average = (((total / sleepRecords.length) * 10).round() / 10).toDouble();
+    } else {
+      average = (((total / numItems) * 10).round() / 10).toDouble();
+    }
+
+    return average;
+  }
+
+  double calcSevenDaysAverageMorningFeeling({required List<SleepRecord> sleepRecords}) {
+    double total = 0;
+    double average = 0;
+
+    // レコードがない場合
+    if (sleepRecords.isEmpty) {
+      return average;
+    }
+    // 合計を求める
+    for (int i = 0; i < sleepRecords.length; i++) {
+      total += sleepRecords[i].morningFeeling;
+    }
+    // 平均を求める
+    if (sleepRecords.length < numItems) {
+      average = (((total / sleepRecords.length) * 10).round() / 10).toDouble();
+    } else {
+      average = (((total / numItems) * 10).round() / 10).toDouble();
+    }
+
+    return average;
+  }
+
+  double calcSevenDaysAverageQualityOfSleep({required List<SleepRecord> sleepRecords}) {
+    double total = 0;
+    double average = 0;
+
+    // レコードがない場合
+    if (sleepRecords.isEmpty) {
+      return average;
+    }
+    // 合計を求める
+    for (int i = 0; i < sleepRecords.length; i++) {
+      total += sleepRecords[i].qualityOfSleep;
+    }
+    // 平均を求める
+    if (sleepRecords.length < numItems) {
+      average = (((total / sleepRecords.length) * 10).round() / 10).toDouble();
+    } else {
+      average = (((total / numItems) * 10).round() / 10).toDouble();
+    }
+
+    return average;
   }
 
   double calcAverageSleepEfficiency(

@@ -207,13 +207,28 @@ class _RecordTablePageState extends State<RecordTablePage> {
                     DataRow(
                       cells: <DataCell>[
                         const DataCell(Text('平均')),
-                        DataCell(Text(calc.calcSevenDaysAverageTimeForBed(sleepRecords: widget.sleepRecords))),
-                        DataCell(Text(calc.calcSevenDaysAverageWakeUpTime(sleepRecords: widget.sleepRecords))),
-                        DataCell(Text(averageSleepTime.toString())),
-                        DataCell(Text(averageNumberOfAwaking.toString())),
-                        DataCell(Text(averageTimeOfAwaking.toString())),
-                        DataCell(Text(averageMorningFeeling.toString())),
-                        DataCell(Text(averageQualityOfSleep.toString())),
+                        DataCell(Text(calc.calcSevenDaysAverageTimeForBed(
+                            sleepRecords: widget.sleepRecords))),
+                        DataCell(Text(calc.calcSevenDaysAverageWakeUpTime(
+                            sleepRecords: widget.sleepRecords))),
+                        DataCell(Text(calc
+                            .calcSevenDaysAverageSleepTime(
+                                sleepRecords: widget.sleepRecords)
+                            .toString())),
+                        DataCell(Text(calc
+                            .calcSevenDaysAverageNumberOfAwaking(
+                                sleepRecords: widget.sleepRecords)
+                            .toString())),
+                        DataCell(Text(calc
+                            .calcSevenDaysAverageTimeOfAwaking(
+                                sleepRecords: widget.sleepRecords)
+                            .toString())),
+                        DataCell(Text(calc
+                            .calcSevenDaysAverageMorningFeeling(
+                                sleepRecords: widget.sleepRecords).toString())),
+                        DataCell(Text(calc
+                            .calcSevenDaysAverageQualityOfSleep(
+                                sleepRecords: widget.sleepRecords).toString())),
                         DataCell(Text(averageTotalTimeInBed.toString())),
                         DataCell(Text(averageTotalSleepTime.toString())),
                         DataCell(
