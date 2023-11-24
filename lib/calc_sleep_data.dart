@@ -43,6 +43,7 @@ class CalcSleepData {
   static const int oneHour = 60;
   static const int numItems = 7;
 
+  // todo: 時刻の平均を求めるひとつの関数にする
   String calcSevenDaysAverageTimeForBed(
       {required List<SleepRecord> sleepRecords}) {
     String result = "00:00";
@@ -128,7 +129,9 @@ class CalcSleepData {
     return result;
   }
 
-  double calcSevenDaysAverageSleepTime({required List<SleepRecord> sleepRecords}) {
+  // todo: 数値の平均を求めるひとつの関数にする
+  double calcSevenDaysAverageSleepTime(
+      {required List<SleepRecord> sleepRecords}) {
     double total = 0;
     double average = 0;
 
@@ -150,7 +153,8 @@ class CalcSleepData {
     return average;
   }
 
-  double calcSevenDaysAverageNumberOfAwaking({required List<SleepRecord> sleepRecords}) {
+  double calcSevenDaysAverageNumberOfAwaking(
+      {required List<SleepRecord> sleepRecords}) {
     double total = 0;
     double average = 0;
 
@@ -172,7 +176,8 @@ class CalcSleepData {
     return average;
   }
 
-  double calcSevenDaysAverageTimeOfAwaking({required List<SleepRecord> sleepRecords}) {
+  double calcSevenDaysAverageTimeOfAwaking(
+      {required List<SleepRecord> sleepRecords}) {
     double total = 0;
     double average = 0;
 
@@ -194,7 +199,8 @@ class CalcSleepData {
     return average;
   }
 
-  double calcSevenDaysAverageMorningFeeling({required List<SleepRecord> sleepRecords}) {
+  double calcSevenDaysAverageMorningFeeling(
+      {required List<SleepRecord> sleepRecords}) {
     double total = 0;
     double average = 0;
 
@@ -216,7 +222,8 @@ class CalcSleepData {
     return average;
   }
 
-  double calcSevenDaysAverageQualityOfSleep({required List<SleepRecord> sleepRecords}) {
+  double calcSevenDaysAverageQualityOfSleep(
+      {required List<SleepRecord> sleepRecords}) {
     double total = 0;
     double average = 0;
 
@@ -238,10 +245,59 @@ class CalcSleepData {
     return average;
   }
 
-  double calcAverageSleepEfficiency(
-      {required double averageTotalTimeInBed,
-      required double averageTotalSleepTime}) {
-    return ((averageTotalSleepTime / averageTotalTimeInBed * 1000).round() /
-        10);
+  double calcSevenDaysAverageTotalTimeInBed(
+      {required List<SleepRecord> sleepRecords}) {
+    double average = 0.0;
+    int sumTotalTime = 0;
+    // 登録データがない場合
+    if (sleepRecords.isEmpty) {
+      return average;
+    }
+
+    // 総臥床時間の週間合計
+    for (int i = 0; i < sleepRecords.length; i++) {
+      int totalTimeInBed = calcTotalTimeInBed(
+          timeForBed: sleepRecords[i].timeForBed,
+          wakeUpTime: sleepRecords[i].wakeUpTime);
+      sumTotalTime += totalTimeInBed;
+    }
+
+    // 登録データが七つに満たない場合
+    if (sleepRecords.length < numItems) {
+      average = (((sumTotalTime / sleepRecords.length) * 10).round()) / 10;
+    } else {
+      average = (((sumTotalTime / numItems) * 10).round()) / 10;
+    }
+    return average;
   }
+  double calcSevenDaysAverageTotalSleepTime(
+      {required List<SleepRecord> sleepRecords}) {
+    double average = 0.0;
+    int sumTotalTime = 0;
+    // 登録データがない場合
+    if (sleepRecords.isEmpty) {
+      return average;
+    }
+
+    // 総睡眠時間の週間合計
+    for (int i = 0; i < sleepRecords.length; i++) {
+      int totalTimeInBed = calcTotalTimeInBed(
+          timeForBed: sleepRecords[i].timeForBed,
+          wakeUpTime: sleepRecords[i].wakeUpTime);
+      int totalSleepTime = calcTotalSleepTime(
+                totalTimeInBed: totalTimeInBed.toString(),
+                sleepTime: sleepRecords[i].sleepTime,
+                timeOfAwaking: sleepRecords[i].timeOfAwaking,
+              );
+      sumTotalTime += totalSleepTime;
+    }
+
+    // 登録データが七つに満たない場合
+    if (sleepRecords.length < numItems) {
+      average = (((sumTotalTime / sleepRecords.length) * 10).round()) / 10;
+    } else {
+      average = (((sumTotalTime / numItems) * 10).round()) / 10;
+    }
+    return average;
+  }  
 }

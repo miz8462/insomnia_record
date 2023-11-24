@@ -22,15 +22,8 @@ class _RecordTablePageState extends State<RecordTablePage> {
   String totalSleepTime = "0";
   // 7日間平均
   // TODO: average関数で初期化する
-  final String averageTimeForBed = '00:00';
-  final String averageWakeUpTime = '00:00';
-  final double averageSleepTime = 0.0;
-  final double averageNumberOfAwaking = 0.0;
-  final double averageTimeOfAwaking = 0.0;
-  final double averageMorningFeeling = 0.0;
-  final double averageQualityOfSleep = 0.0;
-  final double averageTotalTimeInBed = 420.0;
-  final double averageTotalSleepTime = 380.0;
+  String averageTotalTimeInBed = '0.0';
+  String averageTotalSleepTime = '0.0';
   // カラム名
   List<DataColumn> createColumns() {
     const String createdAt = "日付";
@@ -225,15 +218,24 @@ class _RecordTablePageState extends State<RecordTablePage> {
                             .toString())),
                         DataCell(Text(calc
                             .calcSevenDaysAverageMorningFeeling(
-                                sleepRecords: widget.sleepRecords).toString())),
+                                sleepRecords: widget.sleepRecords)
+                            .toString())),
                         DataCell(Text(calc
-                            .calcSevenDaysAverageQualityOfSleep(
-                                sleepRecords: widget.sleepRecords).toString())),
-                        DataCell(Text(averageTotalTimeInBed.toString())),
-                        DataCell(Text(averageTotalSleepTime.toString())),
+                            .calcSevenDaysAverageSleepTime(
+                                sleepRecords: widget.sleepRecords)
+                            .toString())),
+                        DataCell(Text(averageTotalTimeInBed = calc
+                            .calcSevenDaysAverageTotalTimeInBed(
+                                sleepRecords: widget.sleepRecords)
+                            .toString())),
+                        DataCell(Text(averageTotalSleepTime = calc
+                            .calcSevenDaysAverageTotalSleepTime(
+                                sleepRecords: widget.sleepRecords)
+                            .toString())),
                         DataCell(
-                          Text((((averageTotalSleepTime /
-                                              averageTotalTimeInBed) *
+                          Text((((double.parse(averageTotalSleepTime) /
+                                              double.parse(
+                                                  averageTotalTimeInBed)) *
                                           1000)
                                       .round() /
                                   10)
