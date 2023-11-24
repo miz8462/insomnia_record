@@ -49,6 +49,13 @@ class CalcSleepData {
     int totalMin = 0;
     int averageMin = 0;
     int averageHour = 0;
+    String strAverageMin = "00";
+    String strAverageHour = "00";
+
+    // レコードがない場合
+    if (sleepRecords.isEmpty) {
+      return result;
+    }
     // 時間を分になおす
     for (int i = 0; i < sleepRecords.length; i++) {
       final int hour = int.parse(sleepRecords[i].timeForBed.substring(0, 2));
@@ -63,7 +70,59 @@ class CalcSleepData {
     }
     averageHour = averageMin ~/ oneHour;
     averageMin = averageMin % oneHour;
-    result = '$averageHour:$averageMin';
+    if (averageHour < 10) {
+      strAverageHour = '0$averageHour';
+    } else {
+      strAverageHour = '$averageHour';
+    }
+    if (averageMin < 10) {
+      strAverageMin = '0$averageMin';
+    } else {
+      strAverageMin = '$averageMin';
+    }
+    result = '$strAverageHour:$strAverageMin';
+    return result;
+  }
+
+  String calcSevenDaysAverageWakeUpTime(
+      {required List<SleepRecord> sleepRecords}) {
+    String result = "00:00";
+    int totalMin = 0;
+    int averageMin = 0;
+    int averageHour = 0;
+    String strAverageMin = "00";
+    String strAverageHour = "00";
+
+    // レコードがない場合
+    if (sleepRecords.isEmpty) {
+      return result;
+    }
+
+    // 時間を分になおす
+    for (int i = 0; i < sleepRecords.length; i++) {
+      final int hour = int.parse(sleepRecords[i].wakeUpTime.substring(0, 2));
+      final int min = int.parse(sleepRecords[i].wakeUpTime.substring(3, 5));
+      totalMin += hour * oneHour;
+      totalMin += min;
+    }
+    if (sleepRecords.length < numItems) {
+      averageMin = (totalMin / sleepRecords.length).round();
+    } else {
+      averageMin = (totalMin / numItems).round();
+    }
+    averageHour = averageMin ~/ oneHour;
+    averageMin = averageMin % oneHour;
+    if (averageHour < 10) {
+      strAverageHour = '0$averageHour';
+    } else {
+      strAverageHour = '$averageHour';
+    }
+    if (averageMin < 10) {
+      strAverageMin = '0$averageMin';
+    } else {
+      strAverageMin = '$averageMin';
+    }
+    result = '$strAverageHour:$strAverageMin';
     return result;
   }
 
