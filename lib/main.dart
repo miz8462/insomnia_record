@@ -44,6 +44,17 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
   int morningFeeling = 1;
   int qualityOfSleep = 1;
 
+  static List<String> listOneToFive = <String>[
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+  ];
+
+  String dropdownValueMorningFeeling = "3";
+  String dropdownValueQualityOfSleep = "3";
+
   Store? store;
   Box<SleepRecord>? box;
   List<SleepRecord> sleepRecords = [];
@@ -156,16 +167,17 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
             Column(
               children: [
                 const Text('朝の気分(5段階)'),
-                TextField(
-                  keyboardType: TextInputType.number,
-                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                  onChanged: (text) {
-                    morningFeeling = int.parse(text);
-                  },
-                  decoration: InputDecoration(
-                    hintText: morningFeeling.toString(),
-                  ),
-                ),
+                DropdownButton(
+                    value: dropdownValueMorningFeeling,
+                    items: listOneToFive
+                        .map((String list) =>
+                            DropdownMenuItem(value: list, child: Text(list)))
+                        .toList(),
+                    onChanged: (String? value) {
+                      setState(() {
+                        dropdownValueMorningFeeling = value!;
+                      });
+                    }),
               ],
             ),
             Column(
@@ -195,7 +207,7 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
                     sleepTime: sleepTime,
                     numberOfAwaking: numberOfAwaking,
                     timeOfAwaking: timeOfAwaking,
-                    morningFeeling: morningFeeling,
+                    morningFeeling: int.parse(dropdownValueMorningFeeling),
                     qualityOfSleep: qualityOfSleep,
                   ),
                 );
