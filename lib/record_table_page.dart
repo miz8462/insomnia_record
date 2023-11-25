@@ -221,7 +221,7 @@ class _RecordTablePageState extends State<RecordTablePage> {
                                 sleepRecords: widget.sleepRecords)
                             .toString())),
                         DataCell(Text(calc
-                            .calcSevenDaysAverageSleepTime(
+                            .calcSevenDaysAverageQualityOfSleep(
                                 sleepRecords: widget.sleepRecords)
                             .toString())),
                         DataCell(Text(averageTotalTimeInBed = calc
