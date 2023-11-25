@@ -44,16 +44,16 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
   int morningFeeling = 1;
   int qualityOfSleep = 1;
 
-  static List<String> listOneToFive = <String>[
-    "1",
-    "2",
-    "3",
-    "4",
-    "5",
+  static List<int> listOneToFive = <int>[
+    1,
+    2,
+    3,
+    4,
+    5,
   ];
 
-  String dropdownValueMorningFeeling = "3";
-  String dropdownValueQualityOfSleep = "3";
+  int dropdownValueMorningFeeling = 3;
+  int dropdownValueQualityOfSleep = 3;
 
   Store? store;
   Box<SleepRecord>? box;
@@ -170,10 +170,10 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
                 DropdownButton(
                     value: dropdownValueMorningFeeling,
                     items: listOneToFive
-                        .map((String list) =>
-                            DropdownMenuItem(value: list, child: Text(list)))
+                        .map((int list) =>
+                            DropdownMenuItem(value: list, child: Text(list.toString())))
                         .toList(),
-                    onChanged: (String? value) {
+                    onChanged: (int? value) {
                       setState(() {
                         dropdownValueMorningFeeling = value!;
                       });
@@ -186,10 +186,10 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
                 DropdownButton(
                     value: dropdownValueQualityOfSleep,
                     items: listOneToFive
-                        .map((String list) =>
-                            DropdownMenuItem(value: list, child: Text(list)))
+                        .map((int list) =>
+                            DropdownMenuItem(value: list, child: Text(list.toString())))
                         .toList(),
-                    onChanged: (String? value) {
+                    onChanged: (int? value) {
                       setState(() {
                         dropdownValueQualityOfSleep = value!;
                       });
@@ -208,8 +208,8 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
                     sleepTime: sleepTime,
                     numberOfAwaking: numberOfAwaking,
                     timeOfAwaking: timeOfAwaking,
-                    morningFeeling: int.parse(dropdownValueMorningFeeling),
-                    qualityOfSleep: int.parse(dropdownValueQualityOfSleep),
+                    morningFeeling: dropdownValueMorningFeeling,
+                    qualityOfSleep: dropdownValueQualityOfSleep,
                   ),
                 );
                 getNewSevenRecords();
