@@ -183,16 +183,17 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
             Column(
               children: [
                 const Text('睡眠の質(5段階)'),
-                TextField(
-                  keyboardType: TextInputType.number,
-                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                  onChanged: (text) {
-                    qualityOfSleep = int.parse(text);
-                  },
-                  decoration: InputDecoration(
-                    hintText: qualityOfSleep.toString(),
-                  ),
-                ),
+                DropdownButton(
+                    value: dropdownValueQualityOfSleep,
+                    items: listOneToFive
+                        .map((String list) =>
+                            DropdownMenuItem(value: list, child: Text(list)))
+                        .toList(),
+                    onChanged: (String? value) {
+                      setState(() {
+                        dropdownValueQualityOfSleep = value!;
+                      });
+                    }),
               ],
             ),
             // フォームを登録しページ遷移するボタン
@@ -208,7 +209,7 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
                     numberOfAwaking: numberOfAwaking,
                     timeOfAwaking: timeOfAwaking,
                     morningFeeling: int.parse(dropdownValueMorningFeeling),
-                    qualityOfSleep: qualityOfSleep,
+                    qualityOfSleep: int.parse(dropdownValueQualityOfSleep),
                   ),
                 );
                 getNewSevenRecords();
