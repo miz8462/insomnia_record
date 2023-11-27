@@ -126,7 +126,11 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
                   keyboardType: TextInputType.number,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   onChanged: (text) {
-                    sleepTime = int.parse(text);
+                    if (text.isNotEmpty) {
+                      sleepTime = int.parse(text);
+                    } else {
+                      sleepTime = 0;
+                    }
                   },
                   decoration: InputDecoration(
                     hintText: sleepTime.toString(),
@@ -141,7 +145,11 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
                   keyboardType: TextInputType.number,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   onChanged: (text) {
-                    numberOfAwaking = int.parse(text);
+                    if (text.isNotEmpty) {
+                      numberOfAwaking = int.parse(text);
+                    } else {
+                      numberOfAwaking = 0;
+                    }
                   },
                   decoration: InputDecoration(
                     hintText: numberOfAwaking.toString(),
@@ -156,7 +164,11 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
                   keyboardType: TextInputType.number,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   onChanged: (text) {
-                    timeOfAwaking = int.parse(text);
+                    if (text.isNotEmpty) {
+                      timeOfAwaking = int.parse(text);
+                    } else {
+                      timeOfAwaking = 0;
+                    }
                   },
                   decoration: InputDecoration(
                     hintText: timeOfAwaking.toString(),
@@ -170,8 +182,8 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
                 DropdownButton(
                     value: dropdownValueMorningFeeling,
                     items: listOneToFive
-                        .map((int list) =>
-                            DropdownMenuItem(value: list, child: Text(list.toString())))
+                        .map((int list) => DropdownMenuItem(
+                            value: list, child: Text(list.toString())))
                         .toList(),
                     onChanged: (int? value) {
                       setState(() {
@@ -186,8 +198,8 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
                 DropdownButton(
                     value: dropdownValueQualityOfSleep,
                     items: listOneToFive
-                        .map((int list) =>
-                            DropdownMenuItem(value: list, child: Text(list.toString())))
+                        .map((int list) => DropdownMenuItem(
+                            value: list, child: Text(list.toString())))
                         .toList(),
                     onChanged: (int? value) {
                       setState(() {
