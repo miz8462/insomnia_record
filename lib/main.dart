@@ -35,6 +35,8 @@ class InsomniaRecordHomePage extends StatefulWidget {
 
 class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
   final DateTime createdAt = DateTime.now();
+  TimeOfDay selectedTimeForBed = TimeOfDay.now();
+  TimeOfDay selectedWakeUpTime = TimeOfDay.now();
 
   String timeForBed = '00:00';
   String wakeUpTime = '07:00';
@@ -82,6 +84,44 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
     initialize();
   }
 
+  // todo:同じ関数が二つ。リファクタ
+  Future<void> _selectTimeForBed(BuildContext context) async {
+    final TimeOfDay? picked = await showTimePicker(
+        context: context,
+        initialTime: selectedTimeForBed = const TimeOfDay(hour: 0, minute: 0),
+        builder: (BuildContext context, Widget? child) {
+          return MediaQuery(
+            data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+            child: child!,
+          );
+        });
+
+    if (picked != null) {
+      setState(() {
+        selectedTimeForBed = picked;
+      });
+    }
+  }
+
+  // todo:同じ関数が二つ。リファクタ
+  Future<void> _selectWakeUpTime(BuildContext context) async {
+    final TimeOfDay? picked = await showTimePicker(
+        context: context,
+        initialTime: selectedWakeUpTime = const TimeOfDay(hour: 0, minute: 0),
+        builder: (BuildContext context, Widget? child) {
+          return MediaQuery(
+            data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+            child: child!,
+          );
+        });
+
+    if (picked != null) {
+      setState(() {
+        selectedWakeUpTime = picked;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -96,26 +136,26 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
             Column(
               children: [
                 const Text('布団に入った時間'),
-                TextField(
-                  onChanged: (text) {
-                    timeForBed = text;
+                Text(
+                    ('${selectedTimeForBed.hour.toString().padLeft(2, "0")}:${selectedTimeForBed.minute.toString().padLeft(2, "0")}')),
+                ElevatedButton(
+                  onPressed: () => {
+                    _selectTimeForBed(context),
                   },
-                  decoration: InputDecoration(
-                    hintText: timeForBed,
-                  ),
+                  child: const Text('時刻選択'),
                 ),
               ],
             ),
             Column(
               children: [
                 const Text('布団から出た時間'),
-                TextField(
-                  onChanged: (text) {
-                    wakeUpTime = text;
+                Text(
+                    ('${selectedWakeUpTime.hour.toString().padLeft(2, "0")}:${selectedWakeUpTime.minute.toString().padLeft(2, "0")}')),
+                ElevatedButton(
+                  onPressed: () => {
+                    _selectWakeUpTime(context),
                   },
-                  decoration: InputDecoration(
-                    hintText: wakeUpTime,
-                  ),
+                  child: const Text('時刻選択'),
                 ),
               ],
             ),
@@ -215,8 +255,10 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
                 box?.put(
                   SleepRecord(
                     createdAt: createdAt,
-                    timeForBed: timeForBed,
-                    wakeUpTime: wakeUpTime,
+                    timeForBed:
+                        '${selectedTimeForBed.hour.toString().padLeft(2, "0")}:${selectedTimeForBed.minute.toString().padLeft(2, "0")}', // todo:リファクタ
+                    wakeUpTime:
+                        '${selectedWakeUpTime.hour.toString().padLeft(2, "0")}:${selectedWakeUpTime.minute.toString().padLeft(2, "0")}',
                     sleepTime: sleepTime,
                     numberOfAwaking: numberOfAwaking,
                     timeOfAwaking: timeOfAwaking,
