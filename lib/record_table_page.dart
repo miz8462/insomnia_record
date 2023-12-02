@@ -232,13 +232,15 @@ class _RecordTablePageState extends State<RecordTablePage> {
                                 sleepRecords: widget.sleepRecords)
                             .toString())),
                         DataCell(
-                          Text((((double.parse(averageTotalSleepTime) /
-                                              double.parse(
-                                                  averageTotalTimeInBed)) *
-                                          1000)
-                                      .round() /
-                                  10)
-                              .toString()),
+                          Text(((() {
+                            double sleepEfficiencyValue =
+                                (double.parse(averageTotalSleepTime) /
+                                        double.parse(averageTotalTimeInBed)) *
+                                    1000;
+                            return sleepEfficiencyValue.isFinite
+                                ? (sleepEfficiencyValue.round() / 10).toString()
+                                : '0.0';
+                          })())),
                         ),
                       ],
                     ),

@@ -72,8 +72,12 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
     final query = box
         ?.query(SleepRecord_.id.greaterThan(sleepRecords.length - 7))
         .build();
-    sleepRecords = query!.find();
-    query.close;
+    if (query != null) {
+      sleepRecords = query.find();
+      query.close(); // メソッドであることに注意
+    }
+    // sleepRecords = query!.find();
+    // query.close;
     // box?.removeAll();
     setState(() {});
   }
