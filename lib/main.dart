@@ -35,8 +35,8 @@ class InsomniaRecordHomePage extends StatefulWidget {
 
 class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
   final DateTime createdAt = DateTime.now();
-  TimeOfDay selectedTimeForBed = TimeOfDay.now();
-  TimeOfDay selectedWakeUpTime = TimeOfDay.now();
+  TimeOfDay selectedTimeForBed = const TimeOfDay(hour: 00, minute: 00);
+  TimeOfDay selectedWakeUpTime = const TimeOfDay(hour: 07, minute: 00);
 
   String timeForBed = '00:00';
   String wakeUpTime = '07:00';
