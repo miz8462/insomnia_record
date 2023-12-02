@@ -179,8 +179,12 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
           onChanged: (text) {
             if (text.isNotEmpty) {
-              onChanged(int.parse(text));
+              int parsedValue = int.tryParse(text) ?? 0;
+              // 範囲を0から1000に制限
+              parsedValue = parsedValue.clamp(0, 1000);
+              onChanged(parsedValue);
             } else {
+              // 空の場合は0にする
               onChanged(0);
             }
           },
@@ -297,20 +301,30 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
             // フォームを登録しページ遷移するボタン
             CustomActionButton(
               onPressed: () {
-                box?.put(
-                  SleepRecord(
-                    createdAt: createdAt,
-                    timeForBed:
-                        '${selectedTimeForBed.hour.toString().padLeft(2, "0")}:${selectedTimeForBed.minute.toString().padLeft(2, "0")}',
-                    wakeUpTime:
-                        '${selectedWakeUpTime.hour.toString().padLeft(2, "0")}:${selectedWakeUpTime.minute.toString().padLeft(2, "0")}',
-                    sleepTime: sleepTime,
-                    numberOfAwaking: numberOfAwaking,
-                    timeOfAwaking: timeOfAwaking,
-                    morningFeeling: dropdownValueMorningFeeling,
-                    qualityOfSleep: dropdownValueQualityOfSleep,
-                  ),
+                // フォームの値を保存
+                final sleepRecord = SleepRecord(
+                  createdAt: createdAt,
+                  timeForBed:
+                      '${selectedTimeForBed.hour.toString().padLeft(2, "0")}:${selectedTimeForBed.minute.toString().padLeft(2, "0")}',
+                  wakeUpTime:
+                      '${selectedWakeUpTime.hour.toString().padLeft(2, "0")}:${selectedWakeUpTime.minute.toString().padLeft(2, "0")}',
+                  sleepTime: sleepTime,
+                  numberOfAwaking: numberOfAwaking,
+                  timeOfAwaking: timeOfAwaking,
+                  morningFeeling: dropdownValueMorningFeeling,
+                  qualityOfSleep: dropdownValueQualityOfSleep,
                 );
+                // フォームの値をリセット
+                setState(() {
+                  sleepTime = 0;
+                  numberOfAwaking = 0;
+                  timeOfAwaking = 0;
+                  dropdownValueMorningFeeling = 3;
+                  dropdownValueQualityOfSleep = 3;
+                });
+
+                // ページ遷移
+                box?.put(sleepRecord);
                 _getNewSevenRecords();
                 Navigator.of(context).push(
                   MaterialPageRoute(
@@ -325,7 +339,6 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
               },
               text: "登録",
             ),
-
             CustomActionButton(
               onPressed: () {
                 _getNewSevenRecords();
