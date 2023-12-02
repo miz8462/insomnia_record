@@ -342,60 +342,6 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
               },
               text: "週間データを表示",
             ),
-            // ElevatedButton(
-            //   onPressed: () {
-            //     // データを登録
-            //     box?.put(
-            //       SleepRecord(
-            //         createdAt: createdAt,
-            //         timeForBed:
-            //             '${selectedTimeForBed.hour.toString().padLeft(2, "0")}:${selectedTimeForBed.minute.toString().padLeft(2, "0")}', // todo:リファクタ
-            //         wakeUpTime:
-            //             '${selectedWakeUpTime.hour.toString().padLeft(2, "0")}:${selectedWakeUpTime.minute.toString().padLeft(2, "0")}',
-            //         sleepTime: sleepTime,
-            //         numberOfAwaking: numberOfAwaking,
-            //         timeOfAwaking: timeOfAwaking,
-            //         morningFeeling: dropdownValueMorningFeeling,
-            //         qualityOfSleep: dropdownValueQualityOfSleep,
-            //       ),
-            //     );
-            //     _getNewSevenRecords();
-            //     // 画面遷移
-            //     Navigator.of(context).push(
-            //       MaterialPageRoute(
-            //         builder: (context) {
-            //           return RecordTablePage(
-            //               sleepRecords: sleepRecords, box: box);
-            //         },
-            //       ),
-            //     );
-            //   },
-            //   style: ElevatedButton.styleFrom(
-            //     backgroundColor: Colors.orange.shade200,
-            //     foregroundColor: Colors.brown.shade800,
-            //   ),
-            //   child: const Text("登録"),
-            // ),
-            // // テーブルページに遷移するだけのボタン
-            // ElevatedButton(
-            //   onPressed: () {
-            //     _getNewSevenRecords();
-            //     // 画面遷移
-            //     Navigator.of(context).push(
-            //       MaterialPageRoute(
-            //         builder: (context) {
-            //           return RecordTablePage(
-            //               sleepRecords: sleepRecords, box: box);
-            //         },
-            //       ),
-            //     );
-            //   },
-            //   style: ElevatedButton.styleFrom(
-            //     backgroundColor: Colors.orange.shade200,
-            //     foregroundColor: Colors.brown.shade800,
-            //   ),
-            //   child: const Text("週間データを表示"),
-            // ),
           ],
         ),
       ),
