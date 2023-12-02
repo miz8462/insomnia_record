@@ -160,6 +160,115 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
     );
   }
 
+  Widget _buildNumberInputWidget(
+    String label,
+    int value,
+    Function(int) onChanged,
+  ) {
+    return Column(
+      children: [
+        Text(label),
+        TextField(
+          keyboardType: TextInputType.number,
+          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+          onChanged: (text) {
+            if (text.isNotEmpty) {
+              onChanged(int.parse(text));
+            } else {
+              onChanged(0);
+            }
+          },
+          decoration: InputDecoration(
+            hintText: value.toString(),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget buildSleepTimeWidget() {
+    return _buildNumberInputWidget(
+      '寝付くまでの時間',
+      sleepTime,
+      (value) {
+        setState(() {
+          sleepTime = value;
+        });
+      },
+    );
+  }
+
+  Widget buildNumberOfAwakingWidget() {
+    return _buildNumberInputWidget(
+      '夜中目覚めた回数',
+      numberOfAwaking,
+      (value) {
+        setState(() {
+          numberOfAwaking = value;
+        });
+      },
+    );
+  }
+
+  Widget buildTimeOfAwakingWidget() {
+    return _buildNumberInputWidget(
+      '夜中目覚めてた時間',
+      timeOfAwaking,
+      (value) {
+        setState(() {
+          timeOfAwaking = value;
+        });
+      },
+    );
+  }
+
+  Widget _buildDropdownWidget(
+    String label,
+    int value,
+    List<int> items,
+    Function(int) onChanged,
+  ) {
+    return Column(
+      children: [
+        Text(label),
+        DropdownButton(
+          value: value,
+          items: items
+              .map((int item) =>
+                  DropdownMenuItem(value: item, child: Text(item.toString())))
+              .toList(),
+          onChanged: (int? selectedValue) {
+            setState(() {
+              onChanged(selectedValue!);
+            });
+          },
+        ),
+      ],
+    );
+  }
+
+  Widget buildMorningFeelingDropdownWidget() {
+    return _buildDropdownWidget(
+      '朝の気分(5段階)',
+      dropdownValueMorningFeeling,
+      listOneToFive,
+      (value) {
+        dropdownValueMorningFeeling = value;
+      },
+    );
+  }
+
+  Widget buildQualityOfSleepDropdownWidget() {
+    return _buildDropdownWidget(
+      '睡眠の質(5段階)',
+      dropdownValueQualityOfSleep,
+      listOneToFive,
+      (value) {
+        dropdownValueQualityOfSleep = value;
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -173,95 +282,11 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
             // TODO: widgetを作成
             buildTimeForBedWidget(),
             buildWakeUpTimeWidget(),
-            Column(
-              children: [
-                const Text('寝付くまでの時間'),
-                TextField(
-                  keyboardType: TextInputType.number,
-                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                  onChanged: (text) {
-                    if (text.isNotEmpty) {
-                      sleepTime = int.parse(text);
-                    } else {
-                      sleepTime = 0;
-                    }
-                  },
-                  decoration: InputDecoration(
-                    hintText: sleepTime.toString(),
-                  ),
-                ),
-              ],
-            ),
-            Column(
-              children: [
-                const Text('夜中目覚めた回数'),
-                TextField(
-                  keyboardType: TextInputType.number,
-                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                  onChanged: (text) {
-                    if (text.isNotEmpty) {
-                      numberOfAwaking = int.parse(text);
-                    } else {
-                      numberOfAwaking = 0;
-                    }
-                  },
-                  decoration: InputDecoration(
-                    hintText: numberOfAwaking.toString(),
-                  ),
-                ),
-              ],
-            ),
-            Column(
-              children: [
-                const Text('夜中目覚めてた時間'),
-                TextField(
-                  keyboardType: TextInputType.number,
-                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                  onChanged: (text) {
-                    if (text.isNotEmpty) {
-                      timeOfAwaking = int.parse(text);
-                    } else {
-                      timeOfAwaking = 0;
-                    }
-                  },
-                  decoration: InputDecoration(
-                    hintText: timeOfAwaking.toString(),
-                  ),
-                ),
-              ],
-            ),
-            Column(
-              children: [
-                const Text('朝の気分(5段階)'),
-                DropdownButton(
-                    value: dropdownValueMorningFeeling,
-                    items: listOneToFive
-                        .map((int list) => DropdownMenuItem(
-                            value: list, child: Text(list.toString())))
-                        .toList(),
-                    onChanged: (int? value) {
-                      setState(() {
-                        dropdownValueMorningFeeling = value!;
-                      });
-                    }),
-              ],
-            ),
-            Column(
-              children: [
-                const Text('睡眠の質(5段階)'),
-                DropdownButton(
-                    value: dropdownValueQualityOfSleep,
-                    items: listOneToFive
-                        .map((int list) => DropdownMenuItem(
-                            value: list, child: Text(list.toString())))
-                        .toList(),
-                    onChanged: (int? value) {
-                      setState(() {
-                        dropdownValueQualityOfSleep = value!;
-                      });
-                    }),
-              ],
-            ),
+            buildSleepTimeWidget(),
+            buildNumberOfAwakingWidget(),
+            buildTimeOfAwakingWidget(),
+            buildMorningFeelingDropdownWidget(),
+            buildQualityOfSleepDropdownWidget(),
             // フォームを登録しページ遷移するボタン
             ElevatedButton(
               onPressed: () {
