@@ -22,8 +22,8 @@ class _RecordTablePageState extends State<RecordTablePage> {
   String totalSleepTime = "0";
   // 7日間平均
   // TODO: average関数で初期化する
-  String averageTotalTimeInBed = '0.0';
-  String averageTotalSleepTime = '0.0';
+  String averageTotalTimeInBed = '1.0';
+  String averageTotalSleepTime = '1.0';
   // カラム名
   List<DataColumn> createColumns() {
     const String createdAt = "日付";
