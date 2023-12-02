@@ -88,42 +88,40 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
     initialize();
   }
 
-  // todo:同じ関数が二つ。リファクタ
-  Future<void> _selectTimeForBed(BuildContext context) async {
+  Future<void> _selectTime(
+    BuildContext context,
+    TimeOfDay initialTime,
+    Function(TimeOfDay) onTimeSelected,
+  ) async {
     final TimeOfDay? picked = await showTimePicker(
-        context: context,
-        initialTime: selectedTimeForBed = const TimeOfDay(hour: 0, minute: 0),
-        builder: (BuildContext context, Widget? child) {
-          return MediaQuery(
-            data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
-            child: child!,
-          );
-        });
+      context: context,
+      initialTime: initialTime,
+      builder: (BuildContext context, Widget? child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+          child: child!,
+        );
+      },
+    );
 
     if (picked != null) {
       setState(() {
-        selectedTimeForBed = picked;
+        onTimeSelected(picked);
       });
     }
   }
 
-  // todo:同じ関数が二つ。リファクタ
-  Future<void> _selectWakeUpTime(BuildContext context) async {
-    final TimeOfDay? picked = await showTimePicker(
-        context: context,
-        initialTime: selectedWakeUpTime = const TimeOfDay(hour: 0, minute: 0),
-        builder: (BuildContext context, Widget? child) {
-          return MediaQuery(
-            data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
-            child: child!,
-          );
-        });
+  // _selectTimeForBedと_selectWakeUpTimeを共通メソッドで呼び出し
+  Future<void> _selectTimeForBed(BuildContext context) async {
+    _selectTime(context, selectedTimeForBed, (picked) {
+      selectedTimeForBed = picked;
+    });
+  }
 
-    if (picked != null) {
-      setState(() {
-        selectedWakeUpTime = picked;
-      });
-    }
+  Future<void> _selectWakeUpTime(BuildContext context) async {
+    _selectTime(context, selectedWakeUpTime, (picked) {
+      selectedWakeUpTime = picked;
+    });
   }
 
   @override
