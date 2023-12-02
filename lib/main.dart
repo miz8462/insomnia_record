@@ -124,6 +124,42 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
     });
   }
 
+  Widget _buildTimeSelectionWidget(
+    String label,
+    TimeOfDay selectedTime,
+    Function(BuildContext) onPressed,
+  ) {
+    return Column(
+      children: [
+        Text(label),
+        Text(
+          ('${selectedTime.hour.toString().padLeft(2, "0")}:${selectedTime.minute.toString().padLeft(2, "0")}'),
+        ),
+        ElevatedButton(
+          onPressed: () => onPressed(context),
+          child: const Text('時刻選択'),
+        ),
+      ],
+    );
+  }
+
+  // _selectTimeForBedと_selectWakeUpTimeの呼び出しを共通メソッドで置き換え
+  Widget buildTimeForBedWidget() {
+    return _buildTimeSelectionWidget(
+      '布団に入った時間',
+      selectedTimeForBed,
+      _selectTimeForBed,
+    );
+  }
+
+  Widget buildWakeUpTimeWidget() {
+    return _buildTimeSelectionWidget(
+      '布団から出た時間',
+      selectedWakeUpTime,
+      _selectWakeUpTime,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -135,32 +171,8 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
         child: Column(
           children: [
             // TODO: widgetを作成
-            Column(
-              children: [
-                const Text('布団に入った時間'),
-                Text(
-                    ('${selectedTimeForBed.hour.toString().padLeft(2, "0")}:${selectedTimeForBed.minute.toString().padLeft(2, "0")}')),
-                ElevatedButton(
-                  onPressed: () => {
-                    _selectTimeForBed(context),
-                  },
-                  child: const Text('時刻選択'),
-                ),
-              ],
-            ),
-            Column(
-              children: [
-                const Text('布団から出た時間'),
-                Text(
-                    ('${selectedWakeUpTime.hour.toString().padLeft(2, "0")}:${selectedWakeUpTime.minute.toString().padLeft(2, "0")}')),
-                ElevatedButton(
-                  onPressed: () => {
-                    _selectWakeUpTime(context),
-                  },
-                  child: const Text('時刻選択'),
-                ),
-              ],
-            ),
+            buildTimeForBedWidget(),
+            buildWakeUpTimeWidget(),
             Column(
               children: [
                 const Text('寝付くまでの時間'),
