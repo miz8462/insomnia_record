@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:insomnia_record/objectbox.g.dart';
@@ -61,13 +63,23 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
   Box<SleepRecord>? box;
   List<SleepRecord> sleepRecords = [];
 
-  Future<void> initialize() async {
-    store = await openStore();
-    box = store?.box<SleepRecord>();
-    getNewSevenRecords();
+  @override
+  void initState() {
+    super.initState();
+    initialize();
   }
 
-  void getNewSevenRecords() {
+  Future<void> initialize() async {
+    try {
+      store = await openStore();
+      box = store?.box<SleepRecord>();
+      _getNewSevenRecords();
+    } catch (e) {
+      print('初期化に失敗しました: $e');
+    }
+  }
+
+  void _getNewSevenRecords() {
     sleepRecords = box?.getAll() ?? [];
     final query = box
         ?.query(SleepRecord_.id.greaterThan(sleepRecords.length - 7))
@@ -76,16 +88,8 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
       sleepRecords = query.find();
       query.close(); // メソッドであることに注意
     }
-    // sleepRecords = query!.find();
-    // query.close;
     // box?.removeAll();
     setState(() {});
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    initialize();
   }
 
   Future<void> _selectTime(
@@ -111,6 +115,7 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
     }
   }
 
+  // 時刻入力ウィジェット
   // _selectTimeForBedと_selectWakeUpTimeを共通メソッドで呼び出し
   Future<void> _selectTimeForBed(BuildContext context) async {
     _selectTime(context, selectedTimeForBed, (picked) {
@@ -160,6 +165,7 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
     );
   }
 
+  // 数値入力ウィジェット
   Widget _buildNumberInputWidget(
     String label,
     int value,
@@ -222,6 +228,7 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
     );
   }
 
+  // ドロップダウンメニューウィジェット
   Widget _buildDropdownWidget(
     String label,
     int value,
@@ -279,7 +286,7 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // TODO: widgetを作成
+            // フォームウィジェット
             buildTimeForBedWidget(),
             buildWakeUpTimeWidget(),
             buildSleepTimeWidget(),
@@ -288,14 +295,13 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
             buildMorningFeelingDropdownWidget(),
             buildQualityOfSleepDropdownWidget(),
             // フォームを登録しページ遷移するボタン
-            ElevatedButton(
+            CustomActionButton(
               onPressed: () {
-                // データを登録
                 box?.put(
                   SleepRecord(
                     createdAt: createdAt,
                     timeForBed:
-                        '${selectedTimeForBed.hour.toString().padLeft(2, "0")}:${selectedTimeForBed.minute.toString().padLeft(2, "0")}', // todo:リファクタ
+                        '${selectedTimeForBed.hour.toString().padLeft(2, "0")}:${selectedTimeForBed.minute.toString().padLeft(2, "0")}',
                     wakeUpTime:
                         '${selectedWakeUpTime.hour.toString().padLeft(2, "0")}:${selectedWakeUpTime.minute.toString().padLeft(2, "0")}',
                     sleepTime: sleepTime,
@@ -305,46 +311,118 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
                     qualityOfSleep: dropdownValueQualityOfSleep,
                   ),
                 );
-                getNewSevenRecords();
-                // 画面遷移
+                _getNewSevenRecords();
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) {
                       return RecordTablePage(
-                          sleepRecords: sleepRecords, box: box);
+                        sleepRecords: sleepRecords,
+                        box: box,
+                      );
                     },
                   ),
                 );
               },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.orange.shade200,
-                foregroundColor: Colors.brown.shade800,
-              ),
-              child: const Text("登録"),
+              text: "登録",
             ),
-            // テーブルページに遷移するだけのボタン
-            ElevatedButton(
+
+            CustomActionButton(
               onPressed: () {
-                getNewSevenRecords();
-                // 画面遷移
+                _getNewSevenRecords();
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) {
                       return RecordTablePage(
-                          sleepRecords: sleepRecords, box: box);
+                        sleepRecords: sleepRecords,
+                        box: box,
+                      );
                     },
                   ),
                 );
               },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.orange.shade200,
-                foregroundColor: Colors.brown.shade800,
-              ),
-              child: const Text("週間データを表示"),
+              text: "週間データを表示",
             ),
+            // ElevatedButton(
+            //   onPressed: () {
+            //     // データを登録
+            //     box?.put(
+            //       SleepRecord(
+            //         createdAt: createdAt,
+            //         timeForBed:
+            //             '${selectedTimeForBed.hour.toString().padLeft(2, "0")}:${selectedTimeForBed.minute.toString().padLeft(2, "0")}', // todo:リファクタ
+            //         wakeUpTime:
+            //             '${selectedWakeUpTime.hour.toString().padLeft(2, "0")}:${selectedWakeUpTime.minute.toString().padLeft(2, "0")}',
+            //         sleepTime: sleepTime,
+            //         numberOfAwaking: numberOfAwaking,
+            //         timeOfAwaking: timeOfAwaking,
+            //         morningFeeling: dropdownValueMorningFeeling,
+            //         qualityOfSleep: dropdownValueQualityOfSleep,
+            //       ),
+            //     );
+            //     _getNewSevenRecords();
+            //     // 画面遷移
+            //     Navigator.of(context).push(
+            //       MaterialPageRoute(
+            //         builder: (context) {
+            //           return RecordTablePage(
+            //               sleepRecords: sleepRecords, box: box);
+            //         },
+            //       ),
+            //     );
+            //   },
+            //   style: ElevatedButton.styleFrom(
+            //     backgroundColor: Colors.orange.shade200,
+            //     foregroundColor: Colors.brown.shade800,
+            //   ),
+            //   child: const Text("登録"),
+            // ),
+            // // テーブルページに遷移するだけのボタン
+            // ElevatedButton(
+            //   onPressed: () {
+            //     _getNewSevenRecords();
+            //     // 画面遷移
+            //     Navigator.of(context).push(
+            //       MaterialPageRoute(
+            //         builder: (context) {
+            //           return RecordTablePage(
+            //               sleepRecords: sleepRecords, box: box);
+            //         },
+            //       ),
+            //     );
+            //   },
+            //   style: ElevatedButton.styleFrom(
+            //     backgroundColor: Colors.orange.shade200,
+            //     foregroundColor: Colors.brown.shade800,
+            //   ),
+            //   child: const Text("週間データを表示"),
+            // ),
           ],
         ),
       ),
+    );
+  }
+}
+
+// ボタンウィジェット
+class CustomActionButton extends StatelessWidget {
+  final VoidCallback onPressed;
+  final String text;
+
+  const CustomActionButton({
+    Key? key,
+    required this.onPressed,
+    required this.text,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: onPressed,
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.orange.shade200,
+        foregroundColor: Colors.brown.shade800,
+      ),
+      child: Text(text),
     );
   }
 }
