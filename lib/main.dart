@@ -136,13 +136,25 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
   ) {
     return Column(
       children: [
-        Text(label),
+        Text(
+          label,
+          style: const TextStyle(
+            fontSize: 18,
+          ),
+        ),
         Text(
           ('${selectedTime.hour.toString().padLeft(2, "0")}:${selectedTime.minute.toString().padLeft(2, "0")}'),
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 26,
+          ),
         ),
         ElevatedButton(
           onPressed: () => onPressed(context),
-          child: const Text('時刻選択'),
+          child: const Text(
+            '時刻選択',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
         ),
       ],
     );
@@ -173,8 +185,12 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
   ) {
     return Column(
       children: [
-        Text(label),
+        Text(
+          label,
+          style: const TextStyle(fontSize: 18),
+        ),
         TextField(
+          style: const TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
           keyboardType: TextInputType.number,
           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
           onChanged: (text) {
@@ -188,7 +204,10 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
               onChanged(0);
             }
           },
+          textAlign: TextAlign.center,
+          // todo: 数字を囲む枠を小さくする
           decoration: InputDecoration(
+            border: const OutlineInputBorder(),
             hintText: value.toString(),
           ),
         ),
@@ -241,12 +260,22 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
   ) {
     return Column(
       children: [
-        Text(label),
+        Text(
+          label,
+          style: const TextStyle(
+            fontSize: 18,
+          ),
+        ),
         DropdownButton(
           value: value,
           items: items
-              .map((int item) =>
-                  DropdownMenuItem(value: item, child: Text(item.toString())))
+              .map((int item) => DropdownMenuItem(
+                  value: item,
+                  child: Text(
+                    item.toString(),
+                    style: const TextStyle(
+                        fontSize: 26, fontWeight: FontWeight.bold),
+                  )))
               .toList(),
           onChanged: (int? selectedValue) {
             setState(() {
@@ -285,7 +314,7 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+        title: Center(child: Text(widget.title)),
       ),
       body: SingleChildScrollView(
         child: Column(
