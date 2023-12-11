@@ -189,26 +189,30 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
           label,
           style: const TextStyle(fontSize: 18),
         ),
-        TextField(
-          style: const TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
-          keyboardType: TextInputType.number,
-          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-          onChanged: (text) {
-            if (text.isNotEmpty) {
-              int parsedValue = int.tryParse(text) ?? 0;
-              // 範囲を0から1000に制限
-              parsedValue = parsedValue.clamp(0, 1000);
-              onChanged(parsedValue);
-            } else {
-              // 空の場合は0にする
-              onChanged(0);
-            }
-          },
-          textAlign: TextAlign.center,
-          // todo: 数字を囲む枠を小さくする
-          decoration: InputDecoration(
-            border: const OutlineInputBorder(),
-            hintText: value.toString(),
+        Center(
+          child: SizedBox(
+            width: 150,
+            child: TextField(
+              style: const TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+              keyboardType: TextInputType.number,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              onChanged: (text) {
+                if (text.isNotEmpty) {
+                  int parsedValue = int.tryParse(text) ?? 0;
+                  // 範囲を0から1000に制限
+                  parsedValue = parsedValue.clamp(0, 1000);
+                  onChanged(parsedValue);
+                } else {
+                  // 空の場合は0にする
+                  onChanged(0);
+                }
+              },
+              textAlign: TextAlign.center,
+              // todo: 数字を囲む枠を小さくする
+              decoration: InputDecoration(
+                hintText: value.toString(),
+              ),
+            ),
           ),
         ),
       ],
