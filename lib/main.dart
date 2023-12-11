@@ -7,6 +7,9 @@ import 'package:insomnia_record/record_table_page.dart';
 import 'package:insomnia_record/sleep_record.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
+double fontSizeS = 18;
+double fontSizeL = 26;
+
 void main() =>
     initializeDateFormatting("ja-JP", null).then((_) => runApp(const MyApp()));
 
@@ -138,8 +141,8 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
       children: [
         Text(
           label,
-          style: const TextStyle(
-            fontSize: 18,
+          style: TextStyle(
+            fontSize: fontSizeS,
           ),
         ),
         Text(
@@ -151,9 +154,9 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
         ),
         ElevatedButton(
           onPressed: () => onPressed(context),
-          child: const Text(
+          child: Text(
             '時刻選択',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: fontSizeS, fontWeight: FontWeight.bold),
           ),
         ),
       ],
@@ -187,13 +190,14 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
       children: [
         Text(
           label,
-          style: const TextStyle(fontSize: 18),
+          style: TextStyle(fontSize: fontSizeS),
         ),
         Center(
           child: SizedBox(
             width: 150,
             child: TextField(
-              style: const TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+              style:
+                  TextStyle(fontSize: fontSizeL, fontWeight: FontWeight.bold),
               keyboardType: TextInputType.number,
               inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               onChanged: (text) {
@@ -266,8 +270,8 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
       children: [
         Text(
           label,
-          style: const TextStyle(
-            fontSize: 18,
+          style: TextStyle(
+            fontSize: fontSizeS,
           ),
         ),
         DropdownButton(
@@ -277,8 +281,8 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
                   value: item,
                   child: Text(
                     item.toString(),
-                    style: const TextStyle(
-                        fontSize: 26, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        fontSize: fontSizeL, fontWeight: FontWeight.bold),
                   )))
               .toList(),
           onChanged: (int? selectedValue) {
@@ -415,7 +419,7 @@ class CustomActionButton extends StatelessWidget {
           backgroundColor: Colors.orange.shade200,
           foregroundColor: Colors.grey.shade700,
           textStyle:
-              const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              TextStyle(fontSize: fontSizeS, fontWeight: FontWeight.bold)),
       child: Text(text),
     );
   }
