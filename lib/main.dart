@@ -286,6 +286,7 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
               onChanged(selectedValue!);
             });
           },
+          iconSize: 40,
         ),
       ],
     );
