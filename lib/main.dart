@@ -407,9 +407,10 @@ class CustomActionButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.orange.shade200,
-        foregroundColor: Colors.brown.shade800,
-      ),
+          backgroundColor: Colors.orange.shade200,
+          foregroundColor: Colors.grey.shade700,
+          textStyle:
+              const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
       child: Text(text),
     );
   }
