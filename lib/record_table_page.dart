@@ -128,11 +128,6 @@ class _RecordTablePageState extends State<RecordTablePage> {
                   timeForBed: sleepRecords[index].timeForBed,
                   wakeUpTime: sleepRecords[index].wakeUpTime)
               .toString()),
-          // DataCell(Text(totalTimeInBed = calc
-          //     .calcTotalTimeInBed(
-          //         timeForBed: sleepRecords[index].timeForBed,
-          //         wakeUpTime: sleepRecords[index].wakeUpTime)
-          //     .toString())),
           customDataCell(totalSleepTime = calc
               .calcTotalSleepTime(
                 totalTimeInBed: totalTimeInBed,
@@ -152,9 +147,13 @@ class _RecordTablePageState extends State<RecordTablePage> {
 
   DataCell customDataCell(String title,
       {FontWeight fontWeight = FontWeight.normal}) {
-    return DataCell(Text(
-      title,
-      style: TextStyle(fontSize: fontSizeM, fontWeight: fontWeight),
+    return DataCell(Container(
+      alignment: Alignment.center,
+      child: Text(
+        title,
+        style: TextStyle(fontSize: fontSizeM, fontWeight: fontWeight),
+        textAlign: TextAlign.center,
+      ),
     ));
   }
 
