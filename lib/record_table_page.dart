@@ -40,21 +40,21 @@ class _RecordTablePageState extends State<RecordTablePage> {
     const String totalSleepTime = "総睡眠時間";
     const String sleepEfficiency = "睡眠効率";
     return <DataColumn>[
-      custumDataColumn(createdAt),
-      custumDataColumn(timeForBed),
-      custumDataColumn(wakeUpTime),
-      custumDataColumn(sleepTime),
-      custumDataColumn(numberOfAwaking),
-      custumDataColumn(timeOfAwaking),
-      custumDataColumn(morningFeeling),
-      custumDataColumn(qualityOfSleep),
-      custumDataColumn(totalTimeInBed),
-      custumDataColumn(totalSleepTime),
-      custumDataColumn(sleepEfficiency),
+      customDataColumn(createdAt),
+      customDataColumn(timeForBed),
+      customDataColumn(wakeUpTime),
+      customDataColumn(sleepTime),
+      customDataColumn(numberOfAwaking),
+      customDataColumn(timeOfAwaking),
+      customDataColumn(morningFeeling),
+      customDataColumn(qualityOfSleep),
+      customDataColumn(totalTimeInBed),
+      customDataColumn(totalSleepTime),
+      customDataColumn(sleepEfficiency),
     ];
   }
 
-  DataColumn custumDataColumn(String title) {
+  DataColumn customDataColumn(String title) {
     return DataColumn(
       label: Expanded(
         child: Text(
