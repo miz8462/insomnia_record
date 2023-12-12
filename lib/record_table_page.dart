@@ -98,17 +98,20 @@ class _RecordTablePageState extends State<RecordTablePage> {
       (index) => DataRow(
         cells: <DataCell>[
           DataCell(
-            Text(
-              DateFormat('MM/dd').format(sleepRecords[index].createdAt),
-              style: TextStyle(
-                fontSize: fontSizeS,
-                fontWeight: FontWeight.bold,
-                color: Colors.grey.shade700,
-                // 日付に下線を付ける
-                decoration: TextDecoration.underline,
-                decorationColor: Colors.grey, // 下線の色を指定する場合
-                decorationThickness: 2.0, // 下線の太さを指定する場合
-                decorationStyle: TextDecorationStyle.solid, // 下線のスタイルを指定する場合
+            SizedBox(
+              width: 50,
+              child: Text(
+                DateFormat('MM/dd').format(sleepRecords[index].createdAt),
+                style: TextStyle(
+                  fontSize: fontSizeS,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey.shade700,
+                  // 日付に下線を付ける
+                  decoration: TextDecoration.underline,
+                  decorationColor: Colors.grey, // 下線の色を指定する場合
+                  decorationThickness: 2.0, // 下線の太さを指定する場合
+                  decorationStyle: TextDecorationStyle.solid, // 下線のスタイルを指定する場合
+                ),
               ),
             ),
             onTap: () {
@@ -196,9 +199,13 @@ class _RecordTablePageState extends State<RecordTablePage> {
                   rows: <DataRow>[
                     DataRow(
                       cells: <DataCell>[
-                        DataCell(Text(
-                          '平均',
-                          style: TextStyle(fontSize: fontSizeS),
+                        DataCell(SizedBox(
+                          width: 50,
+                          child: Text(
+                            '平均',
+                            style: TextStyle(fontSize: fontSizeS),
+                            textAlign: TextAlign.center,
+                          ),
                         )),
                         customDataCell(
                             calc.calcSevenDaysAverageTimeForBed(
