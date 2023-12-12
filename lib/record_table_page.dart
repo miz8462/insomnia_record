@@ -5,6 +5,7 @@ import 'package:insomnia_record/sleep_record.dart';
 import 'package:intl/intl.dart';
 
 double fontSizeS = 16;
+double fontSizeM = 20;
 double fontSizeL = 26;
 
 class RecordTablePage extends StatefulWidget {
@@ -97,19 +98,33 @@ class _RecordTablePageState extends State<RecordTablePage> {
       (index) => DataRow(
         cells: <DataCell>[
           DataCell(
-            Text(DateFormat('MM/dd').format(sleepRecords[index].createdAt)),
+            Text(
+              DateFormat('MM/dd').format(sleepRecords[index].createdAt),
+              style: TextStyle(
+                fontSize: fontSizeS,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey.shade700,
+                // 日付に下線を付ける
+                decoration: TextDecoration.underline,
+                decorationColor: Colors.grey, // 下線の色を指定する場合
+                decorationThickness: 2.0, // 下線の太さを指定する場合
+                decorationStyle: TextDecorationStyle.solid, // 下線のスタイルを指定する場合
+              ),
+            ),
             onTap: () {
               // 削除モーダル表示
               deleteDialog(sleepRecords[index].id, box);
             },
           ),
-          DataCell(Text(sleepRecords[index].timeForBed)),
-          DataCell(Text(sleepRecords[index].wakeUpTime)),
-          DataCell(Text((sleepRecords[index].sleepTime.toString()))),
-          DataCell(Text(sleepRecords[index].numberOfAwaking.toString())),
-          DataCell(Text(sleepRecords[index].timeOfAwaking.toString())),
-          DataCell(Text(sleepRecords[index].morningFeeling.toString())),
-          DataCell(Text(sleepRecords[index].qualityOfSleep.toString())),
+          customDataCell(sleepRecords[index].timeForBed),
+          customDataCell(sleepRecords[index].wakeUpTime),
+          customDataCell(sleepRecords[index].sleepTime.toString()),
+          customDataCell(sleepRecords[index].numberOfAwaking.toString()),
+          customDataCell(sleepRecords[index].timeOfAwaking.toString()),
+          customDataCell(sleepRecords[index].morningFeeling.toString()),
+          customDataCell(sleepRecords[index].qualityOfSleep.toString()),
+      
+          
           DataCell(Text(totalTimeInBed = calc
               .calcTotalTimeInBed(
                   timeForBed: sleepRecords[index].timeForBed,
@@ -130,6 +145,13 @@ class _RecordTablePageState extends State<RecordTablePage> {
         ],
       ),
     );
+  }
+
+  DataCell customDataCell(String title) {
+    return DataCell(Text(
+      title,
+      style: TextStyle(fontSize: fontSizeM, fontWeight: FontWeight.bold),
+    ));
   }
 
   void getNewSevenRecords() {
