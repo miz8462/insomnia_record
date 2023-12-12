@@ -123,8 +123,6 @@ class _RecordTablePageState extends State<RecordTablePage> {
           customDataCell(sleepRecords[index].timeOfAwaking.toString()),
           customDataCell(sleepRecords[index].morningFeeling.toString()),
           customDataCell(sleepRecords[index].qualityOfSleep.toString()),
-      
-          
           DataCell(Text(totalTimeInBed = calc
               .calcTotalTimeInBed(
                   timeForBed: sleepRecords[index].timeForBed,
@@ -191,49 +189,47 @@ class _RecordTablePageState extends State<RecordTablePage> {
                     DataRow(
                       cells: <DataCell>[
                         const DataCell(Text('平均')),
-                        DataCell(Text(calc.calcSevenDaysAverageTimeForBed(
-                            sleepRecords: widget.sleepRecords))),
-                        DataCell(Text(calc.calcSevenDaysAverageWakeUpTime(
-                            sleepRecords: widget.sleepRecords))),
-                        DataCell(Text(calc
+                        customDataCell(calc.calcSevenDaysAverageTimeForBed(
+                            sleepRecords: widget.sleepRecords)),
+                        customDataCell(calc.calcSevenDaysAverageWakeUpTime(
+                            sleepRecords: widget.sleepRecords)),
+                        customDataCell(calc
                             .calcSevenDaysAverageSleepTime(
                                 sleepRecords: widget.sleepRecords)
-                            .toString())),
-                        DataCell(Text(calc
+                            .toString()),
+                        customDataCell(calc
                             .calcSevenDaysAverageNumberOfAwaking(
                                 sleepRecords: widget.sleepRecords)
-                            .toString())),
-                        DataCell(Text(calc
+                            .toString()),
+                        customDataCell(calc
                             .calcSevenDaysAverageTimeOfAwaking(
                                 sleepRecords: widget.sleepRecords)
-                            .toString())),
-                        DataCell(Text(calc
+                            .toString()),
+                        customDataCell(calc
                             .calcSevenDaysAverageMorningFeeling(
                                 sleepRecords: widget.sleepRecords)
-                            .toString())),
-                        DataCell(Text(calc
+                            .toString()),
+                        customDataCell(calc
                             .calcSevenDaysAverageQualityOfSleep(
                                 sleepRecords: widget.sleepRecords)
-                            .toString())),
-                        DataCell(Text(averageTotalTimeInBed = calc
+                            .toString()),
+                        customDataCell(averageTotalTimeInBed = calc
                             .calcSevenDaysAverageTotalTimeInBed(
                                 sleepRecords: widget.sleepRecords)
-                            .toString())),
-                        DataCell(Text(averageTotalSleepTime = calc
+                            .toString()),
+                        customDataCell(averageTotalSleepTime = calc
                             .calcSevenDaysAverageTotalSleepTime(
                                 sleepRecords: widget.sleepRecords)
-                            .toString())),
-                        DataCell(
-                          Text(((() {
-                            double sleepEfficiencyValue =
-                                (double.parse(averageTotalSleepTime) /
-                                        double.parse(averageTotalTimeInBed)) *
-                                    1000;
-                            return sleepEfficiencyValue.isFinite
-                                ? (sleepEfficiencyValue.round() / 10).toString()
-                                : '0.0';
-                          })())),
-                        ),
+                            .toString()),
+                        customDataCell(((() {
+                          double sleepEfficiencyValue =
+                              (double.parse(averageTotalSleepTime) /
+                                      double.parse(averageTotalTimeInBed)) *
+                                  1000;
+                          return sleepEfficiencyValue.isFinite
+                              ? (sleepEfficiencyValue.round() / 10).toString()
+                              : '0.0';
+                        })())),
                       ],
                     ),
                   ],
