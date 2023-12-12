@@ -179,6 +179,9 @@ class _RecordTablePageState extends State<RecordTablePage> {
       ),
       body: Column(
         children: [
+          const SizedBox(
+            height: 80,
+          ),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Column(
