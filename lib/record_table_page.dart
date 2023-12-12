@@ -123,23 +123,28 @@ class _RecordTablePageState extends State<RecordTablePage> {
           customDataCell(sleepRecords[index].timeOfAwaking.toString()),
           customDataCell(sleepRecords[index].morningFeeling.toString()),
           customDataCell(sleepRecords[index].qualityOfSleep.toString()),
-          DataCell(Text(totalTimeInBed = calc
+          customDataCell(totalTimeInBed = calc
               .calcTotalTimeInBed(
                   timeForBed: sleepRecords[index].timeForBed,
                   wakeUpTime: sleepRecords[index].wakeUpTime)
-              .toString())),
-          DataCell(Text(totalSleepTime = calc
+              .toString()),
+          // DataCell(Text(totalTimeInBed = calc
+          //     .calcTotalTimeInBed(
+          //         timeForBed: sleepRecords[index].timeForBed,
+          //         wakeUpTime: sleepRecords[index].wakeUpTime)
+          //     .toString())),
+          customDataCell(totalSleepTime = calc
               .calcTotalSleepTime(
                 totalTimeInBed: totalTimeInBed,
                 sleepTime: sleepRecords[index].sleepTime,
                 timeOfAwaking: sleepRecords[index].timeOfAwaking,
               )
-              .toString())),
-          DataCell(Text(calc
+              .toString()),
+          customDataCell(calc
               .calcSleepEfficiency(
                   totalSleepTime: totalSleepTime,
                   totalTimeInBed: totalTimeInBed)
-              .toString())),
+              .toString()),
         ],
       ),
     );
