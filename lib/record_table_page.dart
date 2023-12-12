@@ -4,6 +4,9 @@ import 'package:insomnia_record/objectbox.g.dart';
 import 'package:insomnia_record/sleep_record.dart';
 import 'package:intl/intl.dart';
 
+double fontSizeS = 16;
+double fontSizeL = 26;
+
 class RecordTablePage extends StatefulWidget {
   const RecordTablePage(
       {super.key, required this.sleepRecords, required this.box});
@@ -36,63 +39,30 @@ class _RecordTablePageState extends State<RecordTablePage> {
     const String totalTimeInBed = "総臥床時間";
     const String totalSleepTime = "総睡眠時間";
     const String sleepEfficiency = "睡眠効率";
-    return const <DataColumn>[
-      DataColumn(
-        label: Expanded(
-          child: Text(createdAt),
-        ),
-      ),
-      DataColumn(
-        label: Expanded(
-          child: Text(timeForBed),
-        ),
-      ),
-      DataColumn(
-        label: Expanded(
-          child: Text(wakeUpTime),
-        ),
-      ),
-      DataColumn(
-        label: Expanded(
-          child: Text(sleepTime),
-        ),
-      ),
-      DataColumn(
-        label: Expanded(
-          child: Text(numberOfAwaking),
-        ),
-      ),
-      DataColumn(
-        label: Expanded(
-          child: Text(timeOfAwaking),
-        ),
-      ),
-      DataColumn(
-        label: Expanded(
-          child: Text(morningFeeling),
-        ),
-      ),
-      DataColumn(
-        label: Expanded(
-          child: Text(qualityOfSleep),
-        ),
-      ),
-      DataColumn(
-        label: Expanded(
-          child: Text(totalTimeInBed),
-        ),
-      ),
-      DataColumn(
-        label: Expanded(
-          child: Text(totalSleepTime),
-        ),
-      ),
-      DataColumn(
-        label: Expanded(
-          child: Text(sleepEfficiency),
-        ),
-      ),
+    return <DataColumn>[
+      custumDataColumn(createdAt),
+      custumDataColumn(timeForBed),
+      custumDataColumn(wakeUpTime),
+      custumDataColumn(sleepTime),
+      custumDataColumn(numberOfAwaking),
+      custumDataColumn(timeOfAwaking),
+      custumDataColumn(morningFeeling),
+      custumDataColumn(qualityOfSleep),
+      custumDataColumn(totalTimeInBed),
+      custumDataColumn(totalSleepTime),
+      custumDataColumn(sleepEfficiency),
     ];
+  }
+
+  DataColumn custumDataColumn(String title) {
+    return DataColumn(
+      label: Expanded(
+        child: Text(
+          title,
+          style: TextStyle(fontSize: fontSizeS),
+        ),
+      ),
+    );
   }
 
   Future<void> deleteDialog(int id, Box<SleepRecord>? box) {
