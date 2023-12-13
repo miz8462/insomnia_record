@@ -92,9 +92,14 @@ class _RecordTablePageState extends State<RecordTablePage> {
   List<DataRow> createDataCells(
       {required List<SleepRecord> sleepRecords,
       required Box<SleepRecord>? box}) {
+    // データ数がnumItems(7)より小さいときも表が表示されるようにする
+
+    int numberOfRows =
+        sleepRecords.length < numItems ? sleepRecords.length : numItems;
+    print('sleepRecords.length: ${sleepRecords.length}, numItems: $numItems');
+
     return List<DataRow>.generate(
-      // データ数がnumItems(7)より小さいときも表が表示されるようにする
-      (sleepRecords.length < numItems) ? sleepRecords.length : numItems,
+      numberOfRows,
       (index) => DataRow(
         cells: <DataCell>[
           DataCell(
@@ -158,18 +163,6 @@ class _RecordTablePageState extends State<RecordTablePage> {
         textAlign: TextAlign.center,
       ),
     ));
-  }
-
-  void getNewSevenRecords() {
-    var sleepRecords = widget.box?.getAll() ?? [];
-    final query = widget.box
-        ?.query(SleepRecord_.id.greaterThan(sleepRecords.length - 7))
-        .build();
-    if (query != null) {
-      sleepRecords = query.find();
-      query.close;
-    }
-    setState(() {});
   }
 
   @override

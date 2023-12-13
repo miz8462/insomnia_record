@@ -82,16 +82,12 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
     }
   }
 
+  // todo:レコード数が七未満の時
   void _getNewSevenRecords() {
-    sleepRecords = box?.getAll() ?? [];
-    final query = box
-        ?.query(SleepRecord_.id.greaterThan(sleepRecords.length - 7))
-        .build();
-    if (query != null) {
-      sleepRecords = query.find();
-      query.close(); // メソッドであることに注意
-    }
-    // box?.removeAll();
+    sleepRecords =
+        box?.query(SleepRecord_.id.greaterThan(0)).build().find() ?? [];
+    sleepRecords.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+    sleepRecords = sleepRecords.take(7).toList();
     setState(() {});
   }
 
