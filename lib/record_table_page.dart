@@ -96,8 +96,6 @@ class _RecordTablePageState extends State<RecordTablePage> {
 
     int numberOfRows =
         sleepRecords.length < numItems ? sleepRecords.length : numItems;
-    print('sleepRecords.length: ${sleepRecords.length}, numItems: $numItems');
-
     return List<DataRow>.generate(
       numberOfRows,
       (index) => DataRow(
