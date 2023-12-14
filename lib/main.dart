@@ -414,7 +414,7 @@ class CustomActionButton extends StatelessWidget {
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          foregroundColor: const Color.fromARGB(255, 245, 246, 242),
+          foregroundColor: const Color.fromARGB(213, 10, 11, 54),
           textStyle:
               TextStyle(fontSize: fontSizeS, fontWeight: FontWeight.bold)),
       child: Text(text),
