@@ -82,7 +82,6 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
     }
   }
 
-  // todo:レコード数が七未満の時
   void _getNewSevenRecords() {
     sleepRecords =
         box?.query(SleepRecord_.id.greaterThan(0)).build().find() ?? [];
@@ -415,7 +414,7 @@ class CustomActionButton extends StatelessWidget {
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          foregroundColor: const Color.fromARGB(242, 255, 255, 255),
+          foregroundColor: const Color.fromARGB(255, 245, 246, 242),
           textStyle:
               TextStyle(fontSize: fontSizeS, fontWeight: FontWeight.bold)),
       child: Text(text),
