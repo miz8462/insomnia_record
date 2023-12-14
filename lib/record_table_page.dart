@@ -274,6 +274,10 @@ class _RecordTablePageState extends State<RecordTablePage> {
           ),
         ],
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+      floatingActionButton: FloatingActionButton(
+          onPressed: () => {Navigator.of(context).pop()},
+          child: const Icon(Icons.arrow_back)),
     );
   }
 }
