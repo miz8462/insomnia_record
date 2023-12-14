@@ -10,9 +10,10 @@ double fontSizeL = 26;
 
 class RecordTablePage extends StatefulWidget {
   const RecordTablePage(
-      {super.key, required this.sleepRecords, required this.box});
+      {super.key, required this.sleepRecords, required this.box, required this.title});
   final List<SleepRecord> sleepRecords;
   final Box<SleepRecord>? box;
+  final String title;
 
   @override
   State<RecordTablePage> createState() => _RecordTablePageState();
@@ -167,8 +168,8 @@ class _RecordTablePageState extends State<RecordTablePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Insomnia Record'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: Center(child: Text(widget.title)),
       ),
       body: Column(
         children: [

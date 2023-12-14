@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Insomnia Record',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
       home: const InsomniaRecordHomePage(title: 'Insomnia Record'),
@@ -366,6 +366,7 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
                       return RecordTablePage(
                         sleepRecords: sleepRecords,
                         box: box,
+                        title: widget.title,
                       );
                     },
                   ),
@@ -382,6 +383,7 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
                       return RecordTablePage(
                         sleepRecords: sleepRecords,
                         box: box,
+                        title: widget.title,
                       );
                     },
                   ),
@@ -412,8 +414,8 @@ class CustomActionButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.orange.shade200,
-          foregroundColor: Colors.grey.shade700,
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          foregroundColor: const Color.fromARGB(242, 255, 255, 255),
           textStyle:
               TextStyle(fontSize: fontSizeS, fontWeight: FontWeight.bold)),
       child: Text(text),
