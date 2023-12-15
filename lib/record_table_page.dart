@@ -62,9 +62,11 @@ class _RecordTablePageState extends State<RecordTablePage> {
   DataColumn customDataColumn(String title) {
     return DataColumn(
       label: Expanded(
-        child: Text(
-          title,
-          style: TextStyle(fontSize: fontSizeS),
+        child: Center(
+          child: Text(
+            title,
+            style: TextStyle(fontSize: fontSizeS),
+          ),
         ),
       ),
     );
@@ -106,18 +108,21 @@ class _RecordTablePageState extends State<RecordTablePage> {
         cells: <DataCell>[
           DataCell(
             SizedBox(
-              width: 50,
-              child: Text(
-                DateFormat('MM/dd').format(sleepRecords[index].createdAt),
-                style: TextStyle(
-                  fontSize: fontSizeS,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.grey.shade700,
-                  // 日付に下線を付ける
-                  decoration: TextDecoration.underline,
-                  decorationColor: Colors.grey, // 下線の色を指定する場合
-                  decorationThickness: 2.0, // 下線の太さを指定する場合
-                  decorationStyle: TextDecorationStyle.solid, // 下線のスタイルを指定する場合
+              width: 70,
+              child: Center(
+                child: Text(
+                  DateFormat('MM/dd').format(sleepRecords[index].createdAt),
+                  style: TextStyle(
+                    fontSize: fontSizeS,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey.shade700,
+                    // 日付に下線を付ける
+                    decoration: TextDecoration.underline,
+                    decorationColor: Colors.grey, // 下線の色を指定する場合
+                    decorationThickness: 2.0, // 下線の太さを指定する場合
+                    decorationStyle:
+                        TextDecorationStyle.solid, // 下線のスタイルを指定する場合
+                  ),
                 ),
               ),
             ),
@@ -196,7 +201,7 @@ class _RecordTablePageState extends State<RecordTablePage> {
                     DataRow(
                       cells: <DataCell>[
                         DataCell(SizedBox(
-                          width: 50,
+                          width: 70,
                           child: Text(
                             '平均',
                             style: TextStyle(fontSize: fontSizeS),
