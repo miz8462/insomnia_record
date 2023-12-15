@@ -1,4 +1,4 @@
-package com.example.insomnia_record
+package com.mizki.insomnia_record
 
 import io.flutter.embedding.android.FlutterActivity
 
