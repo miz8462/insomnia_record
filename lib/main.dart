@@ -391,6 +391,9 @@ class _InsomniaRecordHomePageState extends State<InsomniaRecordHomePage> {
               },
               text: "週間データを表示",
             ),
+            const SizedBox(
+              height: 40,
+            ),
           ],
         ),
       ),
